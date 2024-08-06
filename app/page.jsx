@@ -1,6 +1,7 @@
 import AboutUs from "@/components/home/AboutUs";
 import Feature from "@/components/home/Feature";
 import ProductPreview from "@/components/home/ProductPreview";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -13,7 +14,7 @@ export default function Home() {
               From city streets to mountain trails, find your perfect ride here</p>
             <div className="flex gap-5 mt-6">
               <button className="py-2 px-12 rounded-md bg-secondary">shop now</button>
-              <button className="py-2 px-8 rounded-md border border-secondary text-secondary">explore bikes</button>
+              <Link href={"/bikes"} className="py-2 px-8 rounded-md border border-secondary text-secondary">explore bikes</Link>
             </div>
           </div>
         </div>
