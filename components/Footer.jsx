@@ -3,7 +3,7 @@ const Footer = () => {
         <footer className="text-white">
             <section className="bg-neutral">
                 <div className="container mx-auto flex flex-col justify-center items-center py-20 gap-20">
-                    <div className="flex justify-center gap-20 items-center w-full">
+                    <div className="flex justify-center gap-32 items-center w-full">
                         <div>
                             <p className="font-semibold text-[24px] mb-5">GOWESMART</p>
                             <ul className="text-[14px] font-light">
