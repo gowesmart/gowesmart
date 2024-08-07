@@ -1,27 +1,21 @@
-"use client"
-
 import Image from "next/image"
 import Link from "next/link"
-import { useEffect } from "react"
 import Quantity from "../global/Quantity"
 import Review from "../review/Review"
 
 const BikeDetails = ({ bike, reviews }) => {
-    useEffect(() => {
-        console.log("speda", bike)
-        console.log("review", reviews)
-    })
-
     return (
         <main className="mt-[80px] pt-10 pb-20">
             <div className="container xl:max-w-[1280px] mx-auto">
                 <section className="flex items-center gap-2">
                     <Link href={"/"}>Home</Link>
                     <p>/</p>
+                    <Link href={"/bikes"}>Bikes</Link>
+                    <p>/</p>
                     <Link href={"/"}>{bike.name}</Link>
                 </section>
                 <section className="flex gap-10 mt-10">
-                    <Image src={"/speda-1.jpg"} width={635} height={450} alt="bike" />
+                    <Image src={bike.image_url} width={635} height={450} alt="bike" priority={true} />
                     <div className="w-full">
                         <div className="pb-3 border-b border-white">
                             <h1 className="text-[36px] font-bold">{bike.name}</h1>
