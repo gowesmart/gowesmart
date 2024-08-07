@@ -1,9 +1,23 @@
 import AboutUs from "@/components/home/AboutUs";
 import Feature from "@/components/home/Feature";
 import ProductPreview from "@/components/home/ProductPreview";
+import { baseUrl } from "@/utils/constants";
 import Link from "next/link";
 
-export default function Home() {
+const fetchData = async () => {
+  try {
+    const res = await fetch(`${baseUrl}/api/bikes/?limit=9&page=2`, { cache: "no-store" })
+    const data = await res.json()
+
+    return data.payload
+  } catch (error) {
+    throw error
+  }
+}
+
+export default async function Home() {
+  const data = await fetchData()
+
   return (
     <main className="flex flex-col items-center justify-between pt-[80px]">
       <div className="bg-[url('/hero-image.jpg')] h-[90vh] w-full bg-cover relative">
@@ -21,7 +35,7 @@ export default function Home() {
       </div>
       <div className="container mx-auto xl:max-w-[1280px]">
         <Feature />
-        <ProductPreview />
+        <ProductPreview bikes={data} />
         <AboutUs />
       </div>
     </main>
