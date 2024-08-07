@@ -2,7 +2,7 @@ import Link from "next/link"
 
 const ProductCard = () => {
     return (
-        <Link href={"/bike/1"} className="w-[280px] h-[406px] rounded-md border border-accent bg-gradient-to-br from-[rgba(67,67,67,0.2)] to-[rgba(14,14,14,0.2)] p-10 flex flex-col justify-center items-center">
+        <Link href={"/bikes/1"} className="w-[280px] h-[406px] rounded-md border border-accent bg-gradient-to-br from-[rgba(67,67,67,0.2)] to-[rgba(14,14,14,0.2)] p-10 flex flex-col justify-center items-center">
             <div className="w-[200px] h-[200px] bg-slate-200"></div>
             <div className="w-full">
                 <p className="text-[20px] font-semibold mt-3">brand - name</p>
