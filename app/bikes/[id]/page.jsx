@@ -3,13 +3,13 @@
 import Error from "@/app/error"
 import Loading from "@/app/loading"
 import BikeDetails from "@/components/products/BikeDetails"
+import { baseUrl } from "@/utils/constants"
 import axios from "axios"
 import { useParams } from "next/navigation"
 import { useEffect, useState } from "react"
 
 const page = () => {
     const { id } = useParams()
-    const apiUrl = "https://api-gowesmart.vercel.app"
     const [isLoading, setIsLoading] = useState(true)
     const [isError, setIsError] = useState(false)
     const [bike, setBike] = useState({})
@@ -21,11 +21,20 @@ const page = () => {
 
     const fetchData = async () => {
         try {
-            const [bikeRes, reviewRes] = await Promise.all([
-                axios.get(`${apiUrl}/api/bikes/${id}`),
-                axios.get(`${apiUrl}/api/bikes/${id}/reviews`)
+            const [bikeRes, reviewRes, categoryRes] = await Promise.all([
+                axios.get(`${baseUrl}/api/bikes/${id}`),
+                axios.get(`${baseUrl}/api/bikes/${id}/reviews`),
+                axios.get(`${baseUrl}/api/categories/`)
             ])
-            setBike(bikeRes.data.payload)
+
+            let singleBike = bikeRes.data.payload
+            categoryRes.data.payload.forEach(category => {
+                if (category.ID === singleBike.category_id) {
+                    singleBike.category = category.Name
+                }
+            })
+
+            setBike(singleBike)
             setReviews(reviewRes.data.payload)
             setIsLoading(false)
         } catch (error) {
