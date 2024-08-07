@@ -3,7 +3,7 @@ const AboutUs = () => {
         <section className="pt-20 pb-28">
             <div className="flex justify-between h-[550px]">
                 <div className="w-[50%] bg-secondary h-full flex flex-col justify-center items-center">
-                    <i className="fa-solid fa-bicycle text-[64px]"></i>
+                    <i aria-hidden className="fa-solid fa-bicycle text-[64px]"></i>
                     <p className="font-bold text-[20px]">gowesmart</p>
                 </div>
                 <div className="flex flex-col gap-5 justify-between">

@@ -1,3 +1,5 @@
+"use client"
+
 import Link from "next/link"
 
 const ProductPreview = () => {
@@ -13,12 +15,12 @@ const ProductPreview = () => {
                         <div>
                             <p className="font-semibold text-[20px]">Rp 400.000</p>
                             <div className="flex text-[14px] justify-center items-center gap-2">
-                                <i className="fa-solid fa-star text-yellow-400"></i>
+                                <i aria-hidden className="fa-solid fa-star text-yellow-400"></i>
                                 <p>5 | 486 available</p>
                             </div>
                         </div>
                         <div className="border border-white rounded-md p-4 flex justify-center items-center">
-                            <i className="fa-solid fa-cart-plus"></i>
+                            <i aria-hidden className="fa-solid fa-cart-plus"></i>
                         </div>
                     </div>
                 </div>
@@ -31,12 +33,12 @@ const ProductPreview = () => {
                                 <div>
                                     <p className="font-semibold text-[14px]">Rp 400.000</p>
                                     <div className="flex text-[10px] justify-center items-center gap-2">
-                                        <i className="fa-solid fa-star text-yellow-400"></i>
+                                        <i aria-hidden className="fa-solid fa-star text-yellow-400"></i>
                                         <p>5 | 486 available</p>
                                     </div>
                                 </div>
                                 <div className="border border-white rounded-md p-2 flex justify-center items-center">
-                                    <i className="fa-solid fa-cart-plus text-[10px]"></i>
+                                    <i aria-hidden className="fa-solid fa-cart-plus text-[10px]"></i>
                                 </div>
                             </div>
                         </div>
@@ -47,12 +49,12 @@ const ProductPreview = () => {
                                 <div>
                                     <p className="font-semibold text-[14px]">Rp 400.000</p>
                                     <div className="flex text-[10px] justify-center items-center gap-2">
-                                        <i className="fa-solid fa-star text-yellow-400"></i>
+                                        <i aria-hidden className="fa-solid fa-star text-yellow-400"></i>
                                         <p>5 | 486 available</p>
                                     </div>
                                 </div>
                                 <div className="border border-white rounded-md p-2 flex justify-center items-center">
-                                    <i className="fa-solid fa-cart-plus text-[10px]"></i>
+                                    <i aria-hidden className="fa-solid fa-cart-plus text-[10px]"></i>
                                 </div>
                             </div>
                         </div>
@@ -63,12 +65,12 @@ const ProductPreview = () => {
                                 <div>
                                     <p className="font-semibold text-[14px]">Rp 400.000</p>
                                     <div className="flex text-[10px] justify-center items-center gap-2">
-                                        <i className="fa-solid fa-star text-yellow-400"></i>
+                                        <i aria-hidden className="fa-solid fa-star text-yellow-400"></i>
                                         <p>5 | 486 available</p>
                                     </div>
                                 </div>
                                 <div className="border border-white rounded-md p-2 flex justify-center items-center">
-                                    <i className="fa-solid fa-cart-plus text-[10px]"></i>
+                                    <i aria-hidden className="fa-solid fa-cart-plus text-[10px]"></i>
                                 </div>
                             </div>
                         </div>
@@ -79,12 +81,12 @@ const ProductPreview = () => {
                                 <div>
                                     <p className="font-semibold text-[14px]">Rp 400.000</p>
                                     <div className="flex text-[10px] justify-center items-center gap-2">
-                                        <i className="fa-solid fa-star text-yellow-400"></i>
+                                        <i aria-hidden className="fa-solid fa-star text-yellow-400"></i>
                                         <p>5 | 486 available</p>
                                     </div>
                                 </div>
                                 <div className="border border-white rounded-md p-2 flex justify-center items-center">
-                                    <i className="fa-solid fa-cart-plus text-[10px]"></i>
+                                    <i aria-hidden className="fa-solid fa-cart-plus text-[10px]"></i>
                                 </div>
                             </div>
                         </div>
@@ -97,12 +99,12 @@ const ProductPreview = () => {
                                 <div>
                                     <p className="font-semibold text-[14px]">Rp 400.000</p>
                                     <div className="flex text-[10px] justify-center items-center gap-2">
-                                        <i className="fa-solid fa-star text-yellow-400"></i>
+                                        <i aria-hidden className="fa-solid fa-star text-yellow-400"></i>
                                         <p>5 | 486 available</p>
                                     </div>
                                 </div>
                                 <div className="border border-white rounded-md p-2 flex justify-center items-center">
-                                    <i className="fa-solid fa-cart-plus text-[10px]"></i>
+                                    <i aria-hidden className="fa-solid fa-cart-plus text-[10px]"></i>
                                 </div>
                             </div>
                         </div>
@@ -113,12 +115,12 @@ const ProductPreview = () => {
                                 <div>
                                     <p className="font-semibold text-[14px]">Rp 400.000</p>
                                     <div className="flex text-[10px] justify-center items-center gap-2">
-                                        <i className="fa-solid fa-star text-yellow-400"></i>
+                                        <i aria-hidden className="fa-solid fa-star text-yellow-400"></i>
                                         <p>5 | 486 available</p>
                                     </div>
                                 </div>
                                 <div className="border border-white rounded-md p-2 flex justify-center items-center">
-                                    <i className="fa-solid fa-cart-plus text-[10px]"></i>
+                                    <i aria-hidden className="fa-solid fa-cart-plus text-[10px]"></i>
                                 </div>
                             </div>
                         </div>
@@ -129,12 +131,12 @@ const ProductPreview = () => {
                                 <div>
                                     <p className="font-semibold text-[14px]">Rp 400.000</p>
                                     <div className="flex text-[10px] justify-center items-center gap-2">
-                                        <i className="fa-solid fa-star text-yellow-400"></i>
+                                        <i aria-hidden className="fa-solid fa-star text-yellow-400"></i>
                                         <p>5 | 486 available</p>
                                     </div>
                                 </div>
                                 <div className="border border-white rounded-md p-2 flex justify-center items-center">
-                                    <i className="fa-solid fa-cart-plus text-[10px]"></i>
+                                    <i aria-hidden className="fa-solid fa-cart-plus text-[10px]"></i>
                                 </div>
                             </div>
                         </div>
@@ -145,12 +147,12 @@ const ProductPreview = () => {
                                 <div>
                                     <p className="font-semibold text-[14px]">Rp 400.000</p>
                                     <div className="flex text-[10px] justify-center items-center gap-2">
-                                        <i className="fa-solid fa-star text-yellow-400"></i>
+                                        <i aria-hidden className="fa-solid fa-star text-yellow-400"></i>
                                         <p>5 | 486 available</p>
                                     </div>
                                 </div>
                                 <div className="border border-white rounded-md p-2 flex justify-center items-center">
-                                    <i className="fa-solid fa-cart-plus text-[10px]"></i>
+                                    <i aria-hidden className="fa-solid fa-cart-plus text-[10px]"></i>
                                 </div>
                             </div>
                         </div>

@@ -41,10 +41,10 @@ const Footer = () => {
                     <div>
                         <p className="font-semibold text-[24px] text-center mb-4">FOLLOW US</p>
                         <ul className="text-[24px] flex justify-center items-center gap-7">
-                            <i className="fa-brands fa-facebook"></i>
-                            <i className="fa-brands fa-instagram"></i>
-                            <i className="fa-brands fa-twitter"></i>
-                            <i className="fa-brands fa-youtube"></i>
+                            <i aria-hidden className="fa-brands fa-facebook"></i>
+                            <i aria-hidden className="fa-brands fa-instagram"></i>
+                            <i aria-hidden className="fa-brands fa-twitter"></i>
+                            <i aria-hidden className="fa-brands fa-youtube"></i>
                         </ul>
                     </div>
                 </div>
