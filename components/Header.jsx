@@ -1,13 +1,15 @@
 "use client";
 
+import useAuthStore from "@/store/authStore";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { Button } from "./ui/Button";
-import { cn } from "@/lib/cn";
 
 const Header = () => {
-  const [isLight, setIsLight] = useState(true);
+  const [isLight, setIsLight] = useState(false);
   const [isShake, setIsShake] = useState(false);
+  const { currentUser, logOut } = useAuthStore();
+  const router = useRouter();
 
   const handleLight = () => {
     setIsLight((prev) => !prev);
@@ -16,6 +18,11 @@ const Header = () => {
     setTimeout(() => {
       setIsShake(false);
     }, 500);
+  };
+
+  const handleLogout = () => {
+    logOut();
+    router.push("/");
   };
 
   return (
@@ -60,6 +67,32 @@ const Header = () => {
               <i className="fa-solid fa-cart-shopping"></i>
             </Link>
           </Button>
+          {currentUser ? (
+            <>
+              <p>{currentUser.username}</p>
+              <button
+                onClick={handleLogout}
+                className="rounded-md bg-secondary px-5 py-2 text-[16px]"
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <Link
+                href={"/register"}
+                className="rounded-md border border-accent px-5 py-2 text-[16px]"
+              >
+                Register
+              </Link>
+              <Link
+                href={"/login"}
+                className="rounded-md bg-secondary px-7 py-2 text-[16px]"
+              >
+                Login
+              </Link>
+            </>
+          )}
           <Button asChild variant="outline" className="px5 py-2 text-[16px]">
             <Link href={"/register"}>Register</Link>
           </Button>
@@ -71,5 +104,4 @@ const Header = () => {
     </header>
   );
 };
-
 export default Header;
