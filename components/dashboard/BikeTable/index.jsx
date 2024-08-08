@@ -17,6 +17,7 @@ import {
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -24,8 +25,21 @@ import {
 import DashboardInput from "../DashboardInput";
 import { InputGroup } from "@/components/global/InputGroup";
 import { Label } from "@/components/global/Label";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/global/Select";
+import { deleteBike } from "@/action/bikeAction";
+import useAuthStore from "@/store/authStore";
 
-export default function BikeTable({ bikes, pagination }) {
+export default function BikeTable({ bikes, categories, pagination }) {
+  const token = useAuthStore((state) => state.token);
+
   return (
     <TableDashboard title={"Bike Management"} pagination={pagination}>
       <TableHeader>
@@ -50,14 +64,14 @@ export default function BikeTable({ bikes, pagination }) {
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent className="w-28 p-0">
-                  <div className="grid divide-y">
+                  <div className="grid divide-y divide-accent">
                     <Dialog>
                       <DialogTrigger asChild>
                         <Button
                           variant="ghost"
                           className="w-full justify-start space-x-2 rounded-none"
                         >
-                          <i className="fa-solid fa-pencil" />
+                          <i aria-hidden className="fa-solid fa-pencil" />
                           <p>Edit</p>
                         </Button>
                       </DialogTrigger>
@@ -106,6 +120,90 @@ export default function BikeTable({ bikes, pagination }) {
                               name="stock"
                             />
                           </InputGroup>
+                          <InputGroup>
+                            <Label htmlFor="category">Category</Label>
+                            <Select
+                              defaultValue={bike.category_id.toString()}
+                              onValueChange={(value) => +value}
+                              name="category"
+                              id="category"
+                            >
+                              <SelectTrigger>
+                                <SelectValue placeholder="Select a category" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectGroup>
+                                  <SelectLabel>Categories</SelectLabel>
+                                  {categories?.map((category) => (
+                                    <SelectItem
+                                      key={category.ID}
+                                      value={category.ID.toString()}
+                                    >
+                                      {category.Name}
+                                    </SelectItem>
+                                  ))}
+                                </SelectGroup>
+                              </SelectContent>
+                            </Select>
+                          </InputGroup>
+                          <InputGroup>
+                            <Label htmlFor="year">Year</Label>
+                            <DashboardInput
+                              id="year"
+                              type="number"
+                              placeholder="year"
+                              defaultValue={bike.year}
+                              name="year"
+                            />
+                          </InputGroup>
+                          <InputGroup className={"lg:col-span-2"}>
+                            <Label htmlFor="image_url">Image</Label>
+                            <DashboardInput
+                              id="image_url"
+                              type="file"
+                              placeholder="image_url"
+                              name="image_url"
+                            />
+                          </InputGroup>
+                        </form>
+                      </DialogContent>
+                    </Dialog>
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <Button
+                          variant="ghost"
+                          className="w-full justify-start space-x-2 rounded-none"
+                        >
+                          <i aria-hidden className="fa-solid fa-trash" />
+                          <p>Delete</p>
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent className="sm:max-w-[425px]">
+                        <DialogHeader>
+                          <DialogTitle>
+                            Are you sure to delete {bike.name}?
+                          </DialogTitle>
+                        </DialogHeader>
+                        <DialogDescription>
+                          This action cannot be undone.
+                        </DialogDescription>
+                        <form
+                          action={deleteBike}
+                          className="mt-2 flex justify-end"
+                        >
+                          <DashboardInput
+                            type="hidden"
+                            name="token"
+                            value={token}
+                          />
+                          <DashboardInput
+                            type="hidden"
+                            name="id"
+                            value={bike.id}
+                          />
+                          <Button type="submit" variant="destructive">
+                            Delete
+                          </Button>
                         </form>
                       </DialogContent>
                     </Dialog>

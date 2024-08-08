@@ -14,15 +14,25 @@ const getBikes = async (page) => {
   ).json();
 };
 
+const getCategories = async () => {
+  return await (
+    await fetchInstance("/api/categories?limit=-1", {
+      next: { revalidate: 10 },
+    })
+  ).json();
+};
+
 export default async function Page({ searchParams }) {
   const page = searchParams.page || 1;
   const { payload: bikes, metadata } = await getBikes(page);
+  const { payload: categories } = await getCategories();
 
   if (page > metadata.total_pages) redirect("/dashboard/bike");
 
   return (
     <BikeTable
       bikes={bikes}
+      categories={categories}
       pagination={<DashboardPagination pagination={metadata} />}
     />
   );
