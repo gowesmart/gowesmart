@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -32,6 +33,7 @@ import getImageURL from "@/utils/firebase/getImageUrl";
 import axiosInstance from "@/lib/axios";
 import useAuthStore from "@/store/authStore";
 import Image from "next/image";
+import extractImageUrl from "@/utils/firebase/extractImageUrl";
 
 export default function DetailBike({ bike, categories }) {
   const { toast } = useToast();
@@ -50,21 +52,25 @@ export default function DetailBike({ bike, categories }) {
   });
 
   const onSubmit = async (data) => {
+    console.log(data);
+    return;
+
     const imageName = `${Date.now()}-${data.image_url[0].name}`;
     try {
       await uploadImage(data.image_url[0], imageName);
       data.image_url = await getImageURL(imageName);
-      await axiosInstance.post("/api/bikes", data, {
+      await axiosInstance.patch("/api/bikes", data, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      toast({ title: "Success", description: "Bike created successfully" });
+      await deleteImage(extractImageUrl(bike.image_url));
+      toast({ title: "Success", description: "Bike updated successfully" });
       router.refresh();
     } catch (error) {
       await deleteImage(imageName);
       toast({
         variant: "destructive",
         title: "Error",
-        description: "Failed create bike",
+        description: "Failed update bike",
       });
     }
   };
@@ -84,6 +90,10 @@ export default function DetailBike({ bike, categories }) {
         <DialogHeader>
           <DialogTitle>Detail Bike {bike.name}</DialogTitle>
         </DialogHeader>
+        <DialogDescription>
+          You can easily update by change the value here and click edit button,
+          or just click outside for quit.
+        </DialogDescription>
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col items-end gap-4"
@@ -129,15 +139,17 @@ export default function DetailBike({ bike, categories }) {
                 {...register("stock", { valueAsNumber: true })}
               />
             </InputGroup>
-            <InputGroup error={errors.category?.message}>
+            <InputGroup error={errors.category_id?.message}>
               <Label htmlFor="category">Category</Label>
               <Controller
                 name="category_id"
                 control={control}
+                rules={{ valueAsNumber: true }}
                 render={({ field }) => (
                   <Select
-                    defaultValue={bike.category_id.toString()}
                     onValueChange={(value) => field.onChange(+value)}
+                    value={field.value?.toString()}
+                    defaultValue={bike.category_id?.toString()}
                   >
                     <SelectTrigger>
                       <SelectValue placeholder="Select a category" />
@@ -159,6 +171,7 @@ export default function DetailBike({ bike, categories }) {
                 )}
               />
             </InputGroup>
+
             <InputGroup error={errors.year?.message}>
               <Label htmlFor="year">Year</Label>
               <DashboardInput
@@ -190,6 +203,7 @@ export default function DetailBike({ bike, categories }) {
             </InputGroup>
             {bike.image_url && (
               <Image
+                alt="Bike image"
                 draggable={false}
                 src={bike.image_url}
                 width={600}

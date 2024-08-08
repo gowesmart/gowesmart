@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -81,6 +82,9 @@ export default function AddBike({ categories }) {
         <DialogHeader>
           <DialogTitle>Create Bike</DialogTitle>
         </DialogHeader>
+        <DialogDescription>
+          Input theese fields and then click submit for create a new bike.
+        </DialogDescription>
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col items-end gap-4"
@@ -122,10 +126,10 @@ export default function AddBike({ categories }) {
                 {...register("stock", { valueAsNumber: true })}
               />
             </InputGroup>
-            <InputGroup error={errors.category?.message}>
+            <InputGroup error={errors.category_id?.message}>
               <Label htmlFor="category">Category</Label>
               <Controller
-                name="category_id"
+                id="category_id"
                 control={control}
                 render={({ field }) => (
                   <Select onValueChange={(value) => field.onChange(+value)}>

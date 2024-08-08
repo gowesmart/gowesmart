@@ -14,6 +14,8 @@ import {
 import { useToast } from "@/hooks/useToast";
 import useAuthStore from "@/store/authStore";
 import axiosInstance from "@/lib/axios";
+import deleteImage from "@/utils/firebase/deleteImage";
+import extractImageUrl from "@/utils/firebase/extractImageUrl";
 
 export default function DeleteBike({ bike }) {
   const router = useRouter();
@@ -25,6 +27,7 @@ export default function DeleteBike({ bike }) {
       await axiosInstance.delete(`/api/bikes/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
+      await deleteImage(extractImageUrl(bike.image_url));
       toast({
         title: "Bike Deleted",
         description: "Bike has been deleted successfully",
@@ -37,7 +40,6 @@ export default function DeleteBike({ bike }) {
         variant: "destructive",
       });
     }
-    router.refresh();
   };
 
   return (
