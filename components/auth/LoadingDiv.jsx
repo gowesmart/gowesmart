@@ -1,10 +1,10 @@
 export default function LoadingDiv() {
   return (
-    <main className="pt-[80px] min-h-dvh flex justify-center items-center">
+    <main className="flex min-h-[calc(100vh-80px)] items-center justify-center">
       <div>
-        <div className="flex flex-col h-screen justify-center items-center">
+        <div className="flex h-screen flex-col items-center justify-center">
           <i className="fa-solid fa-bicycle fa-bounce text-[64px]"></i>
-          <p className="font-bold text-[20px]">gowesmart</p>
+          <p className="text-[20px] font-bold">gowesmart</p>
         </div>
       </div>
     </main>

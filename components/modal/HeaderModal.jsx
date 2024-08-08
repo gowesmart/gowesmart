@@ -23,23 +23,23 @@ const HeaderModal = ({ isModal, setIsModal, handleLogout, role }) => {
                             </>
                             :
                             <>
-                                <Link href={"/user-management"} className='flex items-center rounded-md hover:bg-secondary duration-150'>
+                                <Link href={"/dashboard/user"} className='flex items-center rounded-md hover:bg-secondary duration-150'>
                                     <div className='flex justify-center items-center w-[50px] h-[50px]'><i className='fa-solid fa-user'></i></div>
                                     <p className='font-semibold text-left pr-[25px]'>User</p>
                                 </Link>
-                                <Link href={"/bike-management"} className='flex items-center rounded-md hover:bg-secondary duration-150'>
+                                <Link href={"/dashboard/bike"} className='flex items-center rounded-md hover:bg-secondary duration-150'>
                                     <div className='flex justify-center items-center w-[50px] h-[50px]'><i className='fa-solid fa-gear'></i></div>
                                     <p className='font-semibold text-left pr-[25px]'>Bike</p>
                                 </Link>
-                                <Link href={"/category"} className='flex items-center rounded-md hover:bg-secondary duration-150'>
+                                <Link href={"/dashboard/category"} className='flex items-center rounded-md hover:bg-secondary duration-150'>
                                     <div className='flex justify-center items-center w-[50px] h-[50px]'><i className='fa-solid fa-layer-group'></i></div>
                                     <p className='font-semibold text-left pr-[25px]'>Category</p>
                                 </Link>
-                                <Link href={"/user"} className='flex items-center rounded-md hover:bg-secondary duration-150'>
+                                <Link href={"/dashboard/transaction"} className='flex items-center rounded-md hover:bg-secondary duration-150'>
                                     <div className='flex justify-center items-center w-[50px] h-[50px]'><i className='fa-solid fa-receipt'></i></div>
                                     <p className='font-semibold text-left pr-[25px]'>Transaction</p>
                                 </Link>
-                                <Link href={"/user"} className='flex items-center rounded-md hover:bg-secondary duration-150'>
+                                <Link href={"/dashboard/review"} className='flex items-center rounded-md hover:bg-secondary duration-150'>
                                     <div className='flex justify-center items-center w-[50px] h-[50px]'><i className='fa-solid fa-comments'></i></div>
                                     <p className='font-semibold text-left pr-[25px]'>Review</p>
                                 </Link>

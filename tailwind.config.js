@@ -13,16 +13,15 @@ module.exports = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       colors: {
-        primary: "#1D1D1D",
-        secondary: "#FF6501",
-        tertiary: "#0E0E0E",
-        neutral: "#535D5F",
-        accent: "#2E2E2E",
-        gray: "#F5F5F5",
-        white: "#FFFFFF",
-        "white-smoke": "#FAFAFA"
-      }
+        primary: "hsl(var(--primary))",
+        secondary: "hsl(var(--secondary))",
+        tertiary: "hsl(var(--tertiary))",
+        neutral: "hsl(var(--neutral))",
+        accent: "hsl(var(--accent))",
+        gray: "hsl(var(--gray))",
+        "white-smoke": "hsl(var(--white-smoke))",
+      },
     },
   },
-  plugins: [],
+  plugins: [require("tailwindcss-animate")],
 };

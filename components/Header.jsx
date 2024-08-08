@@ -1,9 +1,11 @@
-'use client';
+"use client";
 
-import useAuthStore from '@/store/authStore';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import useAuthStore from "@/store/authStore";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { Button } from "./global/Button";
+import { cn } from "@/lib/cn";
 import HeaderModal from './modal/HeaderModal';
 
 const Header = () => {
@@ -24,7 +26,7 @@ const Header = () => {
 
   const handleLogout = () => {
     logOut();
-    router.push('/');
+    router.push("/");
   };
 
   return (
@@ -53,7 +55,11 @@ const Header = () => {
             href={'/cart'}
             className={`py-2 px-3 hover:bg-[#252525] duration-150 z-50 ${isLight && 'text-yellow-400'} rounded-md border border-accent`}
           >
-            <i aria-hidden className={`fa-solid fa-bolt ${isShake && 'fa-shake'}`}></i>
+            <i
+              className={cn(`fa-solid fa-bolt`, {
+                "fa-shake": isShake,
+              })}
+            />
           </button>
         </div>
         <div className="flex gap-3 items-center">
@@ -62,9 +68,10 @@ const Header = () => {
               <Link onClick={() => { setIsModal(false) }} href={'/'} className="w-[40px] hover:bg-[#252525] duration-150 z-50 h-[40px] flex justify-center items-center rounded-md border border-accent">
                 <i aria-hidden className="fa-solid fa-house"></i>
               </Link>
-              <Link onClick={() => { setIsModal(false) }} href={'/cart'} className="w-[40px] hover:bg-[#252525] duration-150 z-50 h-[40px] flex justify-center items-center rounded-md border border-accent">
-                <i aria-hidden className="fa-solid fa-cart-shopping"></i>
-              </Link>
+              {currentUser.role === "USER" &&
+                <Link onClick={() => { setIsModal(false) }} href={'/cart'} className="w-[40px] hover:bg-[#252525] duration-150 z-50 h-[40px] flex justify-center items-center rounded-md border border-accent">
+                  <i aria-hidden className="fa-solid fa-cart-shopping"></i>
+                </Link>}
               <Link onClick={() => { setIsModal(false) }} href={'/bikes'} className="w-[40px] hover:bg-[#252525] duration-150 z-50 h-[40px] flex justify-center items-center rounded-md border border-accent">
                 <i aria-hidden className="fa-solid fa-bicycle"></i>
               </Link>
@@ -97,5 +104,4 @@ const Header = () => {
     </header>
   );
 };
-
 export default Header;
