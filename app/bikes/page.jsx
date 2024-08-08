@@ -75,7 +75,7 @@ const Bikes = () => {
                                     </aside>
                                     <div className="w-full">
                                         <h1 className="text-[32px] font-semibold mb-5">products</h1>
-                                        <div className="flex flex-wrap justify-between gap-5">
+                                        <div className="grid grid-cols-3 justify-items-stretch gap-7 mb-10">
                                             {
                                                 bikes.map((bike, index) => (
                                                     <ProductCard key={index} bike={bike} />
