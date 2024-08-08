@@ -2,14 +2,13 @@
 
 import useAuthStore from '@/store/authStore';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import DropdownUser from './global/DropdownUser';
 
 const Header = () => {
   const [isLight, setIsLight] = useState(false);
   const [isShake, setIsShake] = useState(false);
-  const { currentUser, logOut } = useAuthStore();
-  const router = useRouter();
+  const { currentUser } = useAuthStore();
 
   const handleLight = () => {
     setIsLight((prev) => !prev);
@@ -18,11 +17,6 @@ const Header = () => {
     setTimeout(() => {
       setIsShake(false);
     }, 500);
-  };
-
-  const handleLogout = () => {
-    logOut();
-    router.push('/');
   };
 
   return (
@@ -51,22 +45,25 @@ const Header = () => {
           </button>
         </div>
         <div className="flex gap-3 items-center">
-          <Link href={'/cart'} className="py-2 px-3 text-[16px] rounded-md border border-accent">
+          <Link href={'/cart'} className="py-2 px-3 text-[16px] rounded-md border border-accent w-11 h-11 inline-flex items-center justify-center">
             <i aria-hidden className="fa-solid fa-cart-shopping"></i>
           </Link>
           {currentUser ? (
             <>
-              <p>{currentUser.username}</p>
-              <button onClick={handleLogout} className="py-2 px-5 text-[16px] bg-secondary rounded-md">
-                Logout
-              </button>
+              <Link
+                href={'/bikes'}
+                className="py-2 px-3 text-[16px] rounded-md border border-accent w-11 h-11 inline-flex items-center justify-center"
+              >
+                <i aria-hidden className="fa-solid fa-bicycle"></i>
+              </Link>
+              <DropdownUser />
             </>
           ) : (
             <>
-              <Link href={'/register'} className="py-2 px-5 text-[16px] rounded-md border border-accent">
+              <Link href={'/auth/register'} className="py-2 px-5 text-[16px] rounded-md border border-accent">
                 Register
               </Link>
-              <Link href={'/login'} className="py-2 px-7 text-[16px] bg-secondary rounded-md">
+              <Link href={'/auth/login'} className="py-2 px-7 text-[16px] bg-secondary rounded-md">
                 Login
               </Link>
             </>

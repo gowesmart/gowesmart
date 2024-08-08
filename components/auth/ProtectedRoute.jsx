@@ -9,8 +9,8 @@ export default function ProtectedRoute({ children }) {
   const pathname = usePathname();
   const { id } = useParams();
   const { currentUser } = useAuthStore();
-  const mustLogin = ['/cart', `/cart/${id}`];
-  const AlreadyLoggedIn = ['/login', '/register'];
+  const mustLogin = ['/cart'];
+  const AlreadyLoggedIn = ['/auth/login', '/auth/register'];
 
   useEffect(() => {
     if (currentUser) {
@@ -19,7 +19,7 @@ export default function ProtectedRoute({ children }) {
       }
     } else {
       if (mustLogin.includes(pathname)) {
-        router.push('/login');
+        router.push('/auth/login');
       }
     }
   }, [pathname]);
