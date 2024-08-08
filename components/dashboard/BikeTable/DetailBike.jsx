@@ -1,5 +1,4 @@
 "use client";
-
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
@@ -21,10 +20,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/global/Select";
-import { Label } from "@/components/global/Label";
 import { Button } from "@/components/global/Button";
 import { InputGroup } from "@/components/global/InputGroup";
-import { bikeCreateSchema } from "@/validation/bike";
+import { Label } from "@/components/global/Label";
+import { bikeUpdateSchema } from "@/validation/bike";
 import { useToast } from "@/hooks/useToast";
 import Spinner from "@/components/global/Spinner";
 import uploadImage from "@/utils/firebase/uploadImage";
@@ -32,8 +31,9 @@ import deleteImage from "@/utils/firebase/deleteImage";
 import getImageURL from "@/utils/firebase/getImageUrl";
 import axiosInstance from "@/lib/axios";
 import useAuthStore from "@/store/authStore";
+import Image from "next/image";
 
-export default function AddBike({ categories }) {
+export default function DetailBike({ bike, categories }) {
   const { toast } = useToast();
   const router = useRouter();
 
@@ -46,7 +46,7 @@ export default function AddBike({ categories }) {
     formState: { errors, isSubmitting },
   } = useForm({
     mode: "onChange",
-    resolver: zodResolver(bikeCreateSchema),
+    resolver: zodResolver(bikeUpdateSchema),
   });
 
   const onSubmit = async (data) => {
@@ -72,14 +72,17 @@ export default function AddBike({ categories }) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline" className="flex items-center gap-3">
-          <i aria-hidden className="fa-solid fa-plus" />
-          <p>Add bike</p>
+        <Button
+          variant="ghost"
+          className="w-full justify-start space-x-2 rounded-none"
+        >
+          <i aria-hidden className="fa-solid fa-circle-info" />
+          <p>Detail</p>
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[825px]">
         <DialogHeader>
-          <DialogTitle>Create Bike</DialogTitle>
+          <DialogTitle>Detail Bike {bike.name}</DialogTitle>
         </DialogHeader>
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -92,6 +95,7 @@ export default function AddBike({ categories }) {
                 id="brand"
                 type="text"
                 placeholder="Brand..."
+                defaultValue={bike.brand}
                 {...register("brand")}
               />
             </InputGroup>
@@ -101,6 +105,7 @@ export default function AddBike({ categories }) {
                 id="name"
                 type="text"
                 placeholder="Name..."
+                defaultValue={bike.name}
                 {...register("name")}
               />
             </InputGroup>
@@ -110,6 +115,7 @@ export default function AddBike({ categories }) {
                 id="price"
                 type="number"
                 placeholder="Price..."
+                defaultValue={+bike.price}
                 {...register("price", { valueAsNumber: true })}
               />
             </InputGroup>
@@ -119,6 +125,7 @@ export default function AddBike({ categories }) {
                 id="stock"
                 type="number"
                 placeholder="Stock..."
+                defaultValue={+bike.stock}
                 {...register("stock", { valueAsNumber: true })}
               />
             </InputGroup>
@@ -128,7 +135,10 @@ export default function AddBike({ categories }) {
                 name="category_id"
                 control={control}
                 render={({ field }) => (
-                  <Select onValueChange={(value) => field.onChange(+value)}>
+                  <Select
+                    defaultValue={bike.category_id.toString()}
+                    onValueChange={(value) => field.onChange(+value)}
+                  >
                     <SelectTrigger>
                       <SelectValue placeholder="Select a category" />
                     </SelectTrigger>
@@ -155,6 +165,7 @@ export default function AddBike({ categories }) {
                 id="year"
                 type="number"
                 placeholder="Year..."
+                defaultValue={+bike.year}
                 {...register("year", { valueAsNumber: true })}
               />
             </InputGroup>
@@ -164,6 +175,7 @@ export default function AddBike({ categories }) {
                 id="description"
                 type="text"
                 placeholder="Description..."
+                defaultValue={bike.description}
                 {...register("description")}
               />
             </InputGroup>
@@ -176,10 +188,19 @@ export default function AddBike({ categories }) {
                 {...register("image_url")}
               />
             </InputGroup>
+            {bike.image_url && (
+              <Image
+                draggable={false}
+                src={bike.image_url}
+                width={600}
+                height={400}
+                className="col-span-2 mt-2 h-[400px] w-full rounded-md object-cover object-center"
+              />
+            )}
           </div>
           <Button disabled={isSubmitting} type="submit" className="w-fit">
             <Spinner show={isSubmitting} />
-            Submit
+            Edit
           </Button>
         </form>
       </DialogContent>

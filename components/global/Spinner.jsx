@@ -6,7 +6,7 @@ export default function Spinner({ show }) {
   return (
     <svg
       aria-hidden="true"
-      className="text-gray-200 dark:text-gray-600 h-5 w-5 animate-spin fill-primary"
+      className="text-gray-200 dark:text-gray-600 mr-2 h-5 w-5 animate-spin fill-secondary/50"
       viewBox="0 0 100 101"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
