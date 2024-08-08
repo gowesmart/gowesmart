@@ -6,7 +6,7 @@ import Link from "next/link";
 
 const fetchData = async () => {
   try {
-    const res = await fetch(`${baseUrl}/api/bikes/?limit=9&page=2`, { cache: "no-store" })
+    const res = await fetch(`${baseUrl}/api/bikes/?limit=9&page=1`, { cache: "no-store" })
     const data = await res.json()
 
     return data.payload

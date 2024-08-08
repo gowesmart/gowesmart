@@ -3,7 +3,7 @@ import Link from "next/link"
 
 const ProductCard = ({ bike }) => {
     return (
-        <Link href={`/bikes/${bike.id}`} className="w-[300px] h-[406px] hover:scale-105 duration-200 rounded-md border border-accent bg-gradient-to-br from-[rgba(67,67,67,0.2)] to-[rgba(14,14,14,0.2)] p-10 flex flex-col justify-center items-center mb-3">
+        <Link href={`/bikes/${bike.id}`} className="w-[300px] h-[406px] hover:scale-105 duration-200 rounded-md border border-accent bg-gradient-to-br from-[rgba(67,67,67,0.2)] to-[rgba(14,14,14,0.2)] p-10 flex flex-col justify-center items-center">
             <Image src={bike.image_url} width={220} height={220} alt="bike" priority={true} />
             <div className="w-full">
                 <p className="text-[20px] max-h-[30px] overflow-hidden font-semibold mt-3">{bike.name}</p>
