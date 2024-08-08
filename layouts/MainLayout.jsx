@@ -6,6 +6,7 @@ import Header from '@/components/Header';
 import { useEffect } from 'react';
 import LoadingDiv from '@/components/auth/LoadingDiv';
 import useAuthStore from '@/store/authStore';
+import { Toaster } from '@/components/global/Toast/toaster';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -28,6 +29,7 @@ export default function MainLayout({ children }) {
             <Header />
             {children}
             <Footer />
+            <Toaster/>
           </>
         )}
         <script src="https://kit.fontawesome.com/459dbe24a4.js" crossOrigin="anonymous"></script>
