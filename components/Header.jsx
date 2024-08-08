@@ -4,6 +4,8 @@ import useAuthStore from "@/store/authStore";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { Button } from "./global/Button";
+import { cn } from "@/lib/cn";
 
 const Header = () => {
   const [isLight, setIsLight] = useState(false);
@@ -70,35 +72,28 @@ const Header = () => {
           {currentUser ? (
             <>
               <p>{currentUser.username}</p>
-              <button
+              <Button
                 onClick={handleLogout}
-                className="rounded-md bg-secondary px-5 py-2 text-[16px]"
+                variant="outline"
+                className="px-5 py-2 text-[16px]"
               >
                 Logout
-              </button>
+              </Button>
             </>
           ) : (
             <>
-              <Link
-                href={"/register"}
-                className="rounded-md border border-accent px-5 py-2 text-[16px]"
+              <Button
+                asChild
+                variant="outline"
+                className="px5 py-2 text-[16px]"
               >
-                Register
-              </Link>
-              <Link
-                href={"/login"}
-                className="rounded-md bg-secondary px-7 py-2 text-[16px]"
-              >
-                Login
-              </Link>
+                <Link href={"/register"}>Register</Link>
+              </Button>
+              <Button asChild className="px-7 py-2 text-[16px]">
+                <Link href={"/login"}>Login</Link>
+              </Button>
             </>
           )}
-          <Button asChild variant="outline" className="px5 py-2 text-[16px]">
-            <Link href={"/register"}>Register</Link>
-          </Button>
-          <Button asChild className="px-7 py-2 text-[16px]">
-            <Link href={"/login"}>Login</Link>
-          </Button>
         </div>
       </nav>
     </header>
