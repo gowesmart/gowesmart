@@ -47,8 +47,8 @@ export default function ReviewTable({ page }) {
           <TableHead className="w-[50px]">No</TableHead>
           <TableHead>Comment</TableHead>
           <TableHead>Rating</TableHead>
-          <TableHead>User ID</TableHead>
-          <TableHead>Bike ID</TableHead>
+          <TableHead>User</TableHead>
+          <TableHead>Bike</TableHead>
           <TableHead className="text-right">Action</TableHead>
         </TableRow>
       </TableHeader>
@@ -71,8 +71,8 @@ export default function ReviewTable({ page }) {
               <TableCell>{index + 1}</TableCell>
               <TableCell className="font-medium">{review.comment}</TableCell>
               <TableCell>{review.rating}</TableCell>
-              <TableCell>{review.user_id}</TableCell>
-              <TableCell>{review.bike_id}</TableCell>
+              <TableCell>{review.user_username}</TableCell>
+              <TableCell>{review.bike_name}</TableCell>
               <TableCell className="text-right">
                 <DetailReview reviewID={review.id} />
               </TableCell>

@@ -136,19 +136,26 @@ export default function DetailReview({ reviewID }) {
           <DialogTitle>Review Details</DialogTitle>
         </DialogHeader>
         {isFetching ? (
-          <div className="flex justify-center items-center h-full">
+          <div className="flex h-full items-center justify-center">
             <Spinner />
           </div>
         ) : (
           <div className="mt-2 grid gap-4">
-            <p><strong>Comment:</strong> {review?.comment || "N/A"}</p>
-            <p><strong>Rating:</strong> {review?.rating || "N/A"}</p>
-            <p><strong>User:</strong> {review?.user?.username || "N/A"}</p> {/* Display username */}
-            <p><strong>Bike ID:</strong> {review?.bike_id || "N/A"}</p>
+            <p>
+              <strong>Comment:</strong> {review?.comment || "N/A"}
+            </p>
+            <p>
+              <strong>Rating:</strong> {review?.rating || "N/A"}
+            </p>
+            <p>
+              <strong>User:</strong> {review?.user_username || "N/A"}
+            </p>
+            <p>
+              <strong>Bike:</strong> {review?.bike_name || "N/A"}
+            </p>
           </div>
         )}
       </DialogContent>
     </Dialog>
   );
 }
-
