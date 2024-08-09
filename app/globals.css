@@ -2,6 +2,69 @@
 @tailwind components;
 @tailwind utilities;
 
+@keyframes come-in {
+  from {
+    margin-top: 0px;
+    opacity: 0;
+  }
+
+  to {
+    margin-top: 15px;
+    opacity: 1;
+  }
+}
+
+@keyframes come-out {
+  from {
+    margin-top: 15px;
+    opacity: 1;
+  }
+
+  to {
+    margin-top: 0px;
+    opacity: 0;
+  }
+}
+
+.header-modal-in {
+  animation: come-in 70ms forwards;
+}
+
+.header-modal-out {
+  animation: come-out 70ms forwards;
+}
+
+@keyframes modal-in {
+  from {
+    opacity: 0;
+    display: none;
+  }
+
+  to {
+    opacity: 1;
+    display: inline-block;
+  }
+}
+
+@keyframes modal-out {
+  from {
+    opacity: 1;
+    display: inline-block;
+  }
+
+  to {
+    opacity: 0;
+    display: none;
+  }
+}
+
+.modal-in {
+  animation: modal-in 70ms forwards;
+}
+
+.modal-out {
+  animation: modal-out 70ms forwards;
+}
 @layer base {
   :root {
     --primary: 0 0% 11%; /* hsl(0, 0%, 11%) */
@@ -11,6 +74,8 @@
     --accent: 0 0% 18%; /* hsl(0, 0%, 18%) */
     --gray: 0 0% 96%; /* hsl(0, 0%, 96%) */
     --white-smoke: 0 0% 98%; /* hsl(0, 0%, 98%) */
+    --gray-dark: 0 0% 15%; /* hsl(0, 0%, 15%) */
+    --gray-light: 0 0% 26%; /* hsl(0, 0%, 26%) */
   }
 
   body {

@@ -6,49 +6,52 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-export default function FormRegister() {
-  const [registerInput, setRegisterInput] = useState({
-    username: '',
-    email: '',
-    password: '',
+export default function FormResetPassword() {
+  const { token, currentUser } = useAuthStore();
+  const [resetPasswordInput, setResetPasswordInput] = useState({
+    new_password: '',
+    token,
   });
-  const [toastCreated, setToastCreated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const { currentUser } = useAuthStore();
+  const [toastUpdated, setToastUpdated] = useState(false);
   const router = useRouter();
 
   const handleChange = (e) => {
-    setRegisterInput({
-      ...registerInput,
+    setResetPasswordInput({
+      ...resetPasswordInput,
       [e.target.name]: e.target.value,
     });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    registerUser(registerInput);
+    resetPassword(resetPasswordInput);
   };
 
   useEffect(() => {
-    if (currentUser) {
+    if (currentUser === null) {
       router.push('/');
     }
   }, [currentUser]);
 
-  const registerUser = async ({ username, email, password }) => {
+  const resetPassword = async ({ new_password, token }) => {
     setIsLoading(true);
     try {
-      const res = await axios.post(`${baseUrl}/api/auth/register`, {
-        username,
-        email,
-        password,
+      await axios.post(
+        `${baseUrl}/api/auth/reset-password`,
+        {
+          new_password,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setToastUpdated(true);
+      setResetPasswordInput({
+        new_password: '',
       });
-      setRegisterInput({
-        username: '',
-        email: '',
-        password: '',
-      });
-      setToastCreated(true);
     } catch (error) {
       console.error(error);
     }
@@ -59,48 +62,17 @@ export default function FormRegister() {
     <>
       <form className="w-full max-w-lg" onSubmit={handleSubmit}>
         <div className="mb-5">
-          <label for="username" className="block mb-2 text-base font-medium text-gray-900 dark:text-white">
-            Username
-          </label>
-          <input
-            type="text"
-            name="username"
-            onChange={handleChange}
-            value={registerInput.username}
-            id="username"
-            className="bg-transparent border border-gray-300 text-gray-900 text-base rounded-lg block w-full p-2.5"
-            placeholder="johndoe"
-            required
-          />
-        </div>
-        <div className="mb-5">
-          <label for="email" className="block mb-2 text-base font-medium text-gray-900 dark:text-white">
-            Email
-          </label>
-          <input
-            type="email"
-            name="email"
-            onChange={handleChange}
-            value={registerInput.email}
-            id="email"
-            className="bg-transparent border border-gray-300 text-gray-900 text-base rounded-lg block w-full p-2.5"
-            placeholder="john@email.com"
-            autoComplete="off"
-            required
-          />
-        </div>
-        <div className="mb-5">
-          <label for="password" className="block mb-2 text-base font-medium text-gray-900 dark:text-white">
-            Password
+          <label for="new_password" className="block mb-2 text-base font-medium text-gray-900">
+            New Password
           </label>
           <input
             type="password"
-            name="password"
-            value={registerInput.password}
+            name="new_password"
             onChange={handleChange}
-            id="password"
+            value={resetPasswordInput.new_password}
+            id="new_password"
             className="bg-transparent border border-gray-300 text-gray-900 text-base rounded-lg block w-full p-2.5"
-            placeholder="min. 8 characters"
+            placeholder="insert your new password ..."
             required
           />
         </div>
@@ -134,7 +106,7 @@ export default function FormRegister() {
           )}
         </button>
       </form>
-      {toastCreated && (
+      {toastUpdated && (
         <div
           id="toast-success"
           className="flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-primary rounded-lg shadow absolute top-32 right-0 left-0 mx-auto border border-green-700"
@@ -146,13 +118,13 @@ export default function FormRegister() {
             </svg>
             <span className="sr-only">Check icon</span>
           </div>
-          <div className="ms-3 text-sm font-normal">User created successfully</div>
+          <div className="ms-3 text-sm font-normal">User password has been updated</div>
           <button
             type="button"
             className="ms-auto -mx-1.5 -my-1.5 text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8"
             data-dismiss-target="#toast-success"
             aria-label="Close"
-            onClick={() => setToastCreated(false)}
+            onClick={() => setToastUpdated(false)}
           >
             <span className="sr-only">Close</span>
             <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">

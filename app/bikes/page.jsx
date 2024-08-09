@@ -23,11 +23,10 @@ const Bikes = () => {
         setIsLoading(true)
 
         try {
-            const res = await axios.get(`${baseUrl}/api/bikes/?limit=9&page=${page.current}`)
+            const res = await axios.get(`${baseUrl}/api/bikes?limit=9&page=${page.current}`)
             setBikes(res.data.payload)
             setPage(prev => ({ ...prev, total: res.data.metadata.total_pages }))
             setIsLoading(false)
-            console.log("dasdas", res.data.metadata)
         } catch (error) {
             console.error(error)
             setIsError(true)
@@ -75,7 +74,7 @@ const Bikes = () => {
                                     </aside>
                                     <div className="w-full">
                                         <h1 className="text-[32px] font-semibold mb-5">products</h1>
-                                        <div className="flex flex-wrap justify-between gap-5">
+                                        <div className="grid grid-cols-3 justify-items-stretch gap-7 mb-10">
                                             {
                                                 bikes.map((bike, index) => (
                                                     <ProductCard key={index} bike={bike} />

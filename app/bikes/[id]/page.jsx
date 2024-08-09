@@ -24,7 +24,7 @@ const page = () => {
             const [bikeRes, reviewRes, categoryRes] = await Promise.all([
                 axios.get(`${baseUrl}/api/bikes/${id}`),
                 axios.get(`${baseUrl}/api/bikes/${id}/reviews`),
-                axios.get(`${baseUrl}/api/categories/`)
+                axios.get(`${baseUrl}/api/categories`)
             ])
 
             let singleBike = bikeRes.data.payload
