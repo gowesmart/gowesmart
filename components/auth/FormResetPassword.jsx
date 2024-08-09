@@ -3,6 +3,7 @@
 import useAuthStore from '@/store/authStore';
 import { baseUrl } from '@/utils/constants';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 export default function FormResetPassword() {
@@ -13,6 +14,7 @@ export default function FormResetPassword() {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [toastUpdated, setToastUpdated] = useState(false);
+  const router = useRouter();
 
   const handleChange = (e) => {
     setResetPasswordInput({
