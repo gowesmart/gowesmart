@@ -1,6 +1,4 @@
 "use client";
-import { useRouter } from "next/navigation";
-
 import { Button } from "@/components/global/Button";
 import {
   Dialog,
@@ -10,34 +8,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/global/Dialog";
-import { useToast } from "@/hooks/useToast";
-import useAuthStore from "@/store/authStore";
-import axiosInstance from "@/lib/axios";
 
-export default function DeleteCategory({ category }) {
-  const router = useRouter();
-  const token = useAuthStore((state) => state.token);
-  const { toast } = useToast();
-
-  const handleDelete = async (id) => {
-    try {
-      await axiosInstance.delete(`/api/categories/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      toast({
-        title: "Category Deleted",
-        description: "Category has been deleted successfully",
-      });
-      router.refresh();
-    } catch (error) {
-      toast({
-        title: "Error while deleting a category",
-        description: "Some error occurred while deleting a category",
-        variant: "destructive",
-      });
-    }
-  };
-
+export default function DeleteCategory({ category, handleDelete }) {
   return (
     <Dialog>
       <DialogTrigger asChild>

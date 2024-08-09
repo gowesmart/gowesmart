@@ -1,7 +1,6 @@
 "use client";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
 
 import {
   Dialog,
@@ -15,18 +14,10 @@ import DashboardInput from "../DashboardInput";
 import { Button } from "@/components/global/Button";
 import { InputGroup } from "@/components/global/InputGroup";
 import { Label } from "@/components/global/Label";
-import { useToast } from "@/hooks/useToast";
 import Spinner from "@/components/global/Spinner";
-import axiosInstance from "@/lib/axios";
-import useAuthStore from "@/store/authStore";
 import { categoryUpdateSchema } from "@/validation/category";
 
-export default function DetailCategory({ category }) {
-  const { toast } = useToast();
-  const router = useRouter();
-
-  const token = useAuthStore((state) => state.token);
-
+export default function DetailCategory({ category, handleUpdate }) {
   const {
     register,
     handleSubmit,
@@ -35,25 +26,6 @@ export default function DetailCategory({ category }) {
     mode: "onChange",
     resolver: zodResolver(categoryUpdateSchema),
   });
-
-  const handleUpdate = async (data) => {
-    try {
-      await axiosInstance.patch(`/api/categories/${category.ID}`, data, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      toast({
-        title: "Category Updated",
-        description: "Category has been updated successfully",
-      });
-      router.refresh();
-    } catch (error) {
-      toast({
-        title: "Error while updating a category",
-        description: "Some error occurred while updating a category",
-        variant: "destructive",
-      });
-    }
-  };
 
   return (
     <Dialog>
@@ -79,6 +51,12 @@ export default function DetailCategory({ category }) {
           className="flex flex-col items-end gap-4"
         >
           <div className="mt-2 grid w-full gap-4">
+            <DashboardInput
+              id="id"
+              type="hidden"
+              value={category.ID}
+              {...register("id")}
+            />
             <InputGroup error={errors.name?.message}>
               <Label htmlFor="name">Name</Label>
               <DashboardInput

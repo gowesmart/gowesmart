@@ -19,12 +19,18 @@ import {
   PopoverTrigger,
 } from "@/components/global/Popover";
 import { Button } from "@/components/global/Button";
+import { useToast } from "@/hooks/useToast";
 import AddCategory from "./AddCategory";
 import DeleteCategory from "./DeleteCategory";
 import DetailCategory from "./DetailCategory";
+import axiosInstance from "@/lib/axios";
+import useAuthStore from "@/store/authStore";
 
 export default function CategoryTable({ page }) {
   const router = useRouter();
+  const token = useAuthStore((state) => state.token);
+  const { toast } = useToast();
+
   const {
     data: categories,
     isFetching,
@@ -33,8 +39,44 @@ export default function CategoryTable({ page }) {
     `/api/categories?${new URLSearchParams({ limit: 7, page: +page || 1 }).toString()}`,
   );
 
+  const handleUpdate = async (data) => {
+    try {
+      await axiosInstance.patch(`/api/categories/${+data.id}`, data, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      toast({
+        title: "Category Updated",
+        description: "Category has been updated successfully",
+      });
+      router.refresh();
+    } catch (error) {
+      toast({
+        title: "Error while updating a category",
+        description: "Some error occurred while updating a category",
+        variant: "destructive",
+      });
+    }
+  };
 
-  
+  const handleDelete = async (id) => {
+    try {
+      await axiosInstance.delete(`/api/categories/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      toast({
+        title: "Category Deleted",
+        description: "Category has been deleted successfully",
+      });
+      router.refresh();
+    } catch (error) {
+      toast({
+        title: "Error while deleting a category",
+        description: "Some error occurred while deleting a category",
+        variant: "destructive",
+      });
+    }
+  };
+
   if (page > pagination.total_pages) router.push("/dashboard/category?page=1");
 
   return (
@@ -75,8 +117,14 @@ export default function CategoryTable({ page }) {
                   </PopoverTrigger>
                   <PopoverContent className="w-28 p-0">
                     <div className="grid divide-y divide-accent">
-                      <DetailCategory category={category} />
-                      <DeleteCategory category={category} />
+                      <DetailCategory
+                        category={category}
+                        handleUpdate={handleUpdate}
+                      />
+                      <DeleteCategory
+                        category={category}
+                        handleDelete={handleDelete}
+                      />
                     </div>
                   </PopoverContent>
                 </Popover>
