@@ -13,49 +13,69 @@ import TableDashboard from "../TableDashboard";
 import DashboardPagination from "../DashboardPagination";
 import Loading from "@/app/loading";
 import useAuthStore from "@/store/authStore";
+import DetailReview from "./DetailReview"; // Ensure this is imported
 
 export default function ReviewTable({ page }) {
   const router = useRouter();
   const token = useAuthStore((state) => state.token);
 
+  // Fetch reviews with token included in headers
   const {
     data: reviews,
     isFetching,
     pagination,
+    error,
   } = useFetch(
-    `/api/reviews?${new URLSearchParams({ limit: 7, page: +page || 1 }).toString()}`,
+    `/api/reviews?${new URLSearchParams({ page: +page || 1 }).toString()}`,
     {
       headers: { Authorization: `Bearer ${token}` },
     }
   );
 
-  if (page > pagination.total_pages) router.push("/dashboard/review?page=1");
+  // Redirect to the first page if the current page exceeds total pages
+  if (pagination && page > pagination.total_pages) {
+    router.push("/dashboard/review?page=1");
+  }
 
   return (
     <TableDashboard
-      title={"Review Management"}
+      title="Review Management"
       pagination={<DashboardPagination pagination={pagination} />}
     >
       <TableHeader>
         <TableRow>
           <TableHead className="w-[50px]">No</TableHead>
-          <TableHead>Title</TableHead>
-          <TableHead className="text-right">Content</TableHead>
+          <TableHead>Comment</TableHead>
+          <TableHead>Rating</TableHead>
+          <TableHead>User ID</TableHead>
+          <TableHead>Bike ID</TableHead>
+          <TableHead className="text-right">Action</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
         {isFetching ? (
           <TableRow>
-            <TableCell colSpan={3} className="text-center">
+            <TableCell colSpan={6} className="text-center">
               <Loading />
             </TableCell>
           </TableRow>
+        ) : error ? (
+          <TableRow>
+            <TableCell colSpan={6} className="text-center">
+              <p>Error fetching reviews: {error.message}</p>
+            </TableCell>
+          </TableRow>
         ) : (
-          reviews.map((review, index) => (
-            <TableRow key={review.ID}>
+          reviews?.map((review, index) => (
+            <TableRow key={review.id}>
               <TableCell>{index + 1}</TableCell>
-              <TableCell>{review.title}</TableCell>
-              <TableCell className="text-right">{review.content}</TableCell>
+              <TableCell className="font-medium">{review.comment}</TableCell>
+              <TableCell>{review.rating}</TableCell>
+              <TableCell>{review.user_id}</TableCell>
+              <TableCell>{review.bike_id}</TableCell>
+              <TableCell className="text-right">
+                <DetailReview reviewID={review.id} />
+              </TableCell>
             </TableRow>
           ))
         )}
