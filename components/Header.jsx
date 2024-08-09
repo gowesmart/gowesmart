@@ -1,10 +1,11 @@
 "use client";
 import useAuthStore from "@/store/authStore";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { useRef, useState } from "react";
 import { cn } from "@/lib/cn";
-import HeaderModal from "./modal/HeaderModal";
+import HeaderModal from './modal/HeaderModal';
+import useFilter from "@/store/filterStore";
 
 const Header = () => {
   const [isLight, setIsLight] = useState(false);
@@ -12,6 +13,9 @@ const Header = () => {
   const [isModal, setIsModal] = useState(false);
   const { currentUser, logOut } = useAuthStore();
   const router = useRouter();
+  const inputRef = useRef(null)
+  const pathname = usePathname()
+  const { filters, setFilters } = useFilter()
 
   const handleLight = () => {
     setIsLight((prev) => !prev);
@@ -26,6 +30,17 @@ const Header = () => {
     logOut();
     router.push("/");
   };
+
+  const handleSearch = (e) => {
+    e.preventDefault()
+    inputRef.current.blur()
+
+    if (pathname === "/bikes") {
+      setFilters({ marker: true })
+    } else {
+      router.push("/bikes")
+    }
+  }
 
   return (
     <header
@@ -42,11 +57,12 @@ const Header = () => {
           <h1 className="text-[24px] font-semibold">gowesmart</h1>
         </Link>
         <div className="flex gap-3">
-          <form className="onClick={() => { setIsModal(false) }} relative z-50">
+          <form onSubmit={(e) => { handleSearch(e) }} className="relative z-50 onClick={() => { setIsModal(false) }}">
             <input
-              onClick={() => {
-                setIsModal(false);
-              }}
+              ref={inputRef}
+              onChange={(e) => { setFilters({ name: e.target.value }) }}
+              value={filters.name}
+              onClick={() => { setIsModal(false) }}
               placeholder="search for bikes...."
               type="text"
               className="w-[480px] rounded-md border border-accent bg-primary py-2 pl-3 pr-10 outline-none duration-150 hover:bg-[#252525] focus:bg-primary"

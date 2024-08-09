@@ -60,7 +60,7 @@ const BikeDetails = ({ bike, reviews }) => {
                             </section>
                             <section className="flex gap-10 mt-10">
                                 <Image src={bike.image_url} width={635} height={450} alt="bike" priority={true} />
-                                <div className="w-full">
+                                <div className="w-[50%]">
                                     <div className="pb-3 border-b border-white">
                                         <h1 className="text-[36px] font-bold">{bike.name}</h1>
                                         <p className="flex items-center gap-2 text-[14px] pt-1">

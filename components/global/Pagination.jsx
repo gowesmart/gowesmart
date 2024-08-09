@@ -1,35 +1,4 @@
-'use client'
-
-import { useEffect } from "react"
-
 const Pagination = ({ current, total, items, setPage }) => {
-
-    useEffect(() => {
-        if (current > items[1] || items.length === 0) {
-            generatePages("next")
-        } else if (current < items[0]) {
-            generatePages("prev")
-        }
-    }, [current])
-
-    const generatePages = (action) => {
-        const pages = []
-
-        for (let i = 1; i <= total; i++) {
-            if (action === "next") {
-                if (i === current || i === current + 1) {
-                    pages.push(i)
-                }
-            } else {
-                if (i === current - 1 || i === current) {
-                    pages.push(i)
-                }
-            }
-        }
-
-        setPage(prev => ({ ...prev, items: pages }))
-    }
-
     const handlePrev = () => {
         if (current !== 1) {
             setPage(prev => ({ ...prev, current: prev.current - 1 }))

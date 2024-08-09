@@ -9,14 +9,14 @@ const AboutUs = () => {
                 <div className="flex flex-col gap-5 justify-between">
                     <div className="py-9 px-14 border border-accent">
                         <p className="text-[24px] font-bold mb-5">about us</p>
-                        <p>At Gowesmart, we are passionate about cycling and dedicated<br />
+                        <p className="font-light">At Gowesmart, we are passionate about cycling and dedicated<br />
                             to providing the best products and services for all your biking<br />
                             needs. Whether you are a seasoned cyclist or just starting out,<br />
                             we have everything you need to enjoy your ride to the fullest.</p>
                     </div>
                     <div className="py-9 px-14 border border-accent">
                         <p className="text-[24px] font-bold mb-5">our story</p>
-                        <p>Gowesmart was founded with a simple goal: to make cycling <br />
+                        <p className="font-light">Gowesmart was founded with a simple goal: to make cycling <br />
                             accessible and enjoyable for everyone. Over the years, we have <br />
                             grown into a trusted name in the cycling community, known for <br />
                             our commitment to quality and customer satisfaction. We are<br />

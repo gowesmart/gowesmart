@@ -28,7 +28,7 @@ const ProductPreview = ({ bikes }) => {
                 </div>
             </div>
             <div className="flex justify-end w-full">
-                <Link href={"/bikes"} className="py-2 px-5 bg-secondary rounded-md mt-5">more products</Link>
+                <Link href={"/bikes"} className="py-2 px-7 bg-secondary rounded-md mt-5">more products</Link>
             </div>
         </section>
     )
