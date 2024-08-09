@@ -2,7 +2,7 @@ const Quantity = ({ quantity, setQuantity, stock }) => {
     return (
         <div className="flex gap-2">
             <button onClick={() => {
-                if (quantity !== 0) {
+                if (quantity !== 1) {
                     setQuantity(prev => prev - 1)
                 }
             }} className="flex hover:bg-gray-dark duration-150 justify-center items-center w-[35px] h-[35px] border border-accent"><i aria-hidden className="fa-solid fa-minus"></i></button>

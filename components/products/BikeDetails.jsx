@@ -20,7 +20,7 @@ const BikeDetails = ({ bike, reviews }) => {
 
     const handleBuy = async () => {
         if (!currentUser) {
-            router.push("/login")
+            router.push("/auth/login")
             return
         }
 
@@ -127,7 +127,7 @@ const BikeDetails = ({ bike, reviews }) => {
                         </div>
                         <div className="container xl:max-w-[1280px] mx-auto mt-20 w-full flex flex-col gap-[25px]">
                             <h2 className="text-[24px] font-bold">Reviews</h2>
-                            <Link href={"/login"}><button className="bg-secondary w-full py-6 font-bold rounded-md">Please Login to Add a Review</button></Link>
+                            <Link href={"/auth/login"}><button className="bg-secondary w-full py-6 font-bold rounded-md">Please Login to Add a Review</button></Link>
                             <Review />
                             <Review />
                         </div>
