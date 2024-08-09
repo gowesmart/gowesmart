@@ -58,14 +58,17 @@ export default function AddBike({ categories }) {
       await axiosInstance.post("/api/bikes", data, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      toast({ title: "Success", description: "Bike created successfully" });
+      toast({
+        title: "Bike Created",
+        description: "Bike has been created successfully",
+      });
       router.refresh();
     } catch (error) {
       await deleteImage(imageName);
       toast({
+        title: "Error while creating a bike",
+        description: "Some error occurred while creating a bike",
         variant: "destructive",
-        title: "Error",
-        description: "Failed create bike",
       });
     }
   };

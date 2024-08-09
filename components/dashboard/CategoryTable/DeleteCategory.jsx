@@ -1,5 +1,4 @@
 "use client";
-
 import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/global/Button";
@@ -14,29 +13,26 @@ import {
 import { useToast } from "@/hooks/useToast";
 import useAuthStore from "@/store/authStore";
 import axiosInstance from "@/lib/axios";
-import deleteImage from "@/utils/firebase/deleteImage";
-import extractImageUrl from "@/utils/firebase/extractImageUrl";
 
-export default function DeleteBike({ bike }) {
+export default function DeleteCategory({ category }) {
   const router = useRouter();
   const token = useAuthStore((state) => state.token);
   const { toast } = useToast();
 
   const handleDelete = async (id) => {
     try {
-      await axiosInstance.delete(`/api/bikes/${id}`, {
+      await axiosInstance.delete(`/api/categories/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      await deleteImage(extractImageUrl(bike.image_url));
       toast({
-        title: "Bike Deleted",
-        description: "Bike has been deleted successfully",
+        title: "Category Deleted",
+        description: "Category has been deleted successfully",
       });
       router.refresh();
     } catch (error) {
       toast({
-        title: "Error while deleting a bike",
-        description: "Some error occurred while deleting a bike",
+        title: "Error while deleting a category",
+        description: "Some error occurred while deleting a category",
         variant: "destructive",
       });
     }
@@ -55,13 +51,13 @@ export default function DeleteBike({ bike }) {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Are you sure to delete {bike.name}?</DialogTitle>
+          <DialogTitle>Are you sure to delete {category.name}?</DialogTitle>
         </DialogHeader>
         <DialogDescription>This action cannot be undone.</DialogDescription>
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            handleDelete(bike.id);
+            handleDelete(category.ID);
           }}
           className="mt-2 flex justify-end"
         >

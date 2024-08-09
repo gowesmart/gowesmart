@@ -72,6 +72,11 @@ const Header = () => {
           {currentUser ? (
             <>
               <p>{currentUser.username}</p>
+              {currentUser.role === "ADMIN" && (
+                <Button asChild className="px-5 py-2 text-[16px]">
+                  <Link href={"/dashboard"}>Dashboard</Link>
+                </Button>
+              )}
               <Button
                 onClick={handleLogout}
                 variant="outline"

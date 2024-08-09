@@ -70,16 +70,19 @@ export default function DetailBike({ bike, categories }) {
       if (isImageUpdated) {
         await deleteImage(extractImageUrl(bike.image_url));
       }
-      toast({ title: "Success", description: "Bike updated successfully" });
+      toast({
+        title: "Bike Updated",
+        description: "Bike has been updates successfully",
+      });
       router.refresh();
     } catch (error) {
       if (isImageUpdated) {
         await deleteImage(imageName);
       }
       toast({
+        title: "Error while updating a bike",
+        description: "Some error occurred while updating a bike",
         variant: "destructive",
-        title: "Error",
-        description: "Failed update bike",
       });
     }
   };
