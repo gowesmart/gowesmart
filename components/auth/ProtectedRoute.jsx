@@ -22,7 +22,7 @@ export default function ProtectedRoute({ children }) {
       }
     } else {
       if (mustLogin) {
-        router.push("/login");
+        router.push("/auth/login");
       }
     }
   }, [pathname]);
