@@ -1,13 +1,13 @@
-import FormForgotPassword from '@/components/auth/FormForgotPassword';
+import FormForgotPassword from "@/components/auth/FormForgotPassword";
 
 export default function ForgotPassword() {
   return (
-    <main className="pt-[80px] min-h-dvh flex justify-center items-center">
+    <main className="flex min-h-dvh items-center justify-center pt-[80px]">
       <div>
-        <div className="flex flex-col gap-8 p-12 w-[30rem] rounded-lg border">
+        <div className="flex w-[30rem] flex-col gap-8 rounded-lg border border-accent bg-primary p-12">
           <div className="w-full max-w-lg">
             <h1 className="text-2xl font-bold">Forgot Password</h1>
-            <p>enter your credentials for temporary login</p>
+            <p>enter your username and email for requesting change password</p>
           </div>
           <FormForgotPassword />
         </div>
