@@ -1,12 +1,20 @@
-import React from 'react'
+import { cn } from "@/lib/cn";
 
-const Loading = () => {
-    return (
-        <div className="flex flex-col h-screen justify-center items-center">
-            <i aria-hidden className="fa-solid fa-bicycle fa-bounce text-[64px] mb-2"></i>
-            <p className="font-bold text-[20px]">gowesmart</p>
-        </div>
-    )
-}
+const Loading = ({ ...props }) => {
+  return (
+    <div
+      className={cn(
+        "flex h-screen flex-col items-center justify-center",
+        props.className,
+      )}
+    >
+      <i
+        aria-hidden
+        className="fa-solid fa-bicycle fa-bounce mb-2 text-[64px]"
+      ></i>
+      <p className="text-[20px] font-bold">gowesmart</p>
+    </div>
+  );
+};
 
-export default Loading
+export default Loading;

@@ -5,7 +5,7 @@ const Footer = () => {
                 <div className="container mx-auto flex flex-col justify-center items-center py-20 gap-20">
                     <div className="flex justify-center gap-32 items-center w-full">
                         <div>
-                            <p className="font-semibold text-[24px] mb-5">GOWESMART</p>
+                            <p className="font-semibold text-[20px] mb-5">GOWESMART</p>
                             <ul className="text-[14px] font-light">
                                 <li>About Gowesmart</li>
                                 <li>Gowesmart Outlet Locations in Indonesia</li>
@@ -16,7 +16,7 @@ const Footer = () => {
                             </ul>
                         </div>
                         <div>
-                            <p className="font-semibold text-[24px] mb-5">CUSTOMER FACILITIES</p>
+                            <p className="font-semibold text-[20px] mb-5">CUSTOMER FACILITIES</p>
                             <ul className="text-[14px] font-light">
                                 <li>Bike Selection Guide</li>
                                 <li>Tips & Tricks (Blog)</li>
@@ -27,7 +27,7 @@ const Footer = () => {
                             </ul>
                         </div>
                         <div>
-                            <p className="font-semibold text-[24px] mb-5">SHOPPING GUIDE</p>
+                            <p className="font-semibold text-[20px] mb-5">SHOPPING GUIDE</p>
                             <ul className="text-[14px] font-light">
                                 <li>How to Order</li>
                                 <li>Shipping Policy</li>
@@ -39,7 +39,7 @@ const Footer = () => {
                         </div>
                     </div>
                     <div>
-                        <p className="font-semibold text-[24px] text-center mb-4">FOLLOW US</p>
+                        <p className="font-semibold text-[20px] text-center mb-4">FOLLOW US</p>
                         <ul className="text-[24px] flex justify-center items-center gap-7">
                             <i aria-hidden className="fa-brands fa-facebook"></i>
                             <i aria-hidden className="fa-brands fa-instagram"></i>
@@ -50,7 +50,7 @@ const Footer = () => {
                 </div>
             </section>
             <section className="bg-primary">
-                <div className="container mx-auto flex justify-center items-center p-5">
+                <div className="container text-[14px] mx-auto flex justify-center items-center p-5">
                     COPYRIGHT © 2024 GOWESMART. ALL RIGHTS RESERVED.
                 </div>
             </section>
