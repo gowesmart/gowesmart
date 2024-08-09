@@ -1,9 +1,17 @@
-const Quantity = () => {
+const Quantity = ({ quantity, setQuantity, stock }) => {
     return (
         <div className="flex gap-2">
-            <div className="flex justify-center items-center w-[35px] h-[35px] border border-accent"><i aria-hidden className="fa-solid fa-minus"></i></div>
-            <div className="flex justify-center items-center w-[35px] h-[35px] border border-accent">0</div>
-            <div className="flex justify-center items-center w-[35px] h-[35px] border border-accent"><i aria-hidden className="fa-solid fa-plus"></i></div>
+            <button onClick={() => {
+                if (quantity !== 0) {
+                    setQuantity(prev => prev - 1)
+                }
+            }} className="flex hover:bg-gray-dark duration-150 justify-center items-center w-[35px] h-[35px] border border-accent"><i aria-hidden className="fa-solid fa-minus"></i></button>
+            <div className="flex cursor-default justify-center items-center w-[35px] h-[35px] border border-accent">{quantity}</div>
+            <button onClick={() => {
+                if (quantity !== stock) {
+                    setQuantity(prev => prev + 1)
+                }
+            }} className="flex hover:bg-gray-dark duration-150 justify-center items-center w-[35px] h-[35px] border border-accent"><i aria-hidden className="fa-solid fa-plus"></i></button>
         </div>
     )
 }

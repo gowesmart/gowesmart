@@ -20,6 +20,8 @@ module.exports = {
         accent: "hsl(var(--accent))",
         gray: "hsl(var(--gray))",
         "white-smoke": "hsl(var(--white-smoke))",
+        "gray-dark": "hsl(var(--gray-dark))",
+        "gray-light": "hsl(var(--gray-light))"
       },
     },
   },

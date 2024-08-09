@@ -23,11 +23,10 @@ const Bikes = () => {
         setIsLoading(true)
 
         try {
-            const res = await axios.get(`${baseUrl}/api/bikes/?limit=9&page=${page.current}`)
+            const res = await axios.get(`${baseUrl}/api/bikes?limit=9&page=${page.current}`)
             setBikes(res.data.payload)
             setPage(prev => ({ ...prev, total: res.data.metadata.total_pages }))
             setIsLoading(false)
-            console.log("dasdas", res.data.metadata)
         } catch (error) {
             console.error(error)
             setIsError(true)
