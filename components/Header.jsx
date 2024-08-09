@@ -91,10 +91,10 @@ const Header = () => {
               <Link href={'/bikes'} className="w-[40px] h-[40px] hover:bg-[#252525] duration-150 flex justify-center items-center rounded-md border border-accent">
                 <i aria-hidden className="fa-solid fa-bicycle"></i>
               </Link>
-              <Link href={'/register'} className="py-2 px-5 hover:bg-[#252525] duration-150 rounded-md border border-accent">
+              <Link href={'/auth/register'} className="py-2 px-5 hover:bg-[#252525] duration-150 rounded-md border border-accent">
                 Register
               </Link>
-              <Link href={'/login'} className="py-2 px-7 hover:bg-opacity-80 duration-150 bg-secondary rounded-md">
+              <Link href={'/auth/login'} className="py-2 px-7 hover:bg-opacity-80 duration-150 bg-secondary rounded-md">
                 Login
               </Link>
             </>

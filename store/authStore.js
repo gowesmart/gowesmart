@@ -22,7 +22,7 @@ const useAuthStore = create(
           });
           set({ currentUser: data.payload });
         } catch (error) {
-          console.error(error);
+          set({ token: null, currentUser: null });
         }
         set({ loadingFetching: false });
       },

@@ -7,25 +7,25 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-export default function FormLogin() {
+export default function FormForgotPassword() {
   const { setToken, currentUser } = useAuthStore();
-  const [loginInput, setLoginInput] = useState({
+  const [forgotPasswordInput, setForgotPasswordInput] = useState({
+    username: '',
     email: '',
-    password: '',
   });
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
-    setLoginInput({
-      ...loginInput,
+    setForgotPasswordInput({
+      ...forgotPasswordInput,
       [e.target.name]: e.target.value,
     });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    loginUser(loginInput);
+    forgotPassword(forgotPasswordInput);
   };
 
   useEffect(() => {
@@ -34,18 +34,18 @@ export default function FormLogin() {
     }
   }, [currentUser]);
 
-  const loginUser = async ({ email, password }) => {
+  const forgotPassword = async ({ username, email }) => {
     setIsLoading(true);
     try {
-      const { data } = await axios.post(`${baseUrl}/api/auth/login`, {
+      const { data } = await axios.post(`${baseUrl}/api/auth/forgot-password`, {
+        username,
         email,
-        password,
       });
-      const { token } = data.payload;
-      setToken(token);
-      setLoginInput({
+      const { forgot_password_token } = data.payload;
+      setToken(forgot_password_token);
+      setForgotPasswordInput({
+        username: '',
         email: '',
-        password: '',
       });
       router.push('/');
     } catch (error) {
@@ -57,6 +57,21 @@ export default function FormLogin() {
   return (
     <form className="w-full max-w-lg" onSubmit={handleSubmit}>
       <div className="mb-5">
+        <label for="username" className="block mb-2 text-base font-medium text-gray-900">
+          Username
+        </label>
+        <input
+          type="text"
+          name="username"
+          onChange={handleChange}
+          value={forgotPasswordInput.username}
+          id="username"
+          className="bg-transparent border border-gray-300 text-gray-900 text-base rounded-lg block w-full p-2.5"
+          placeholder="johndoe"
+          required
+        />
+      </div>
+      <div className="mb-5">
         <label for="email" className="block mb-2 text-base font-medium text-gray-900">
           Email
         </label>
@@ -64,32 +79,12 @@ export default function FormLogin() {
           type="email"
           name="email"
           onChange={handleChange}
-          value={loginInput.email}
+          value={forgotPasswordInput.email}
           id="email"
           className="bg-transparent border border-gray-300 text-gray-900 text-base rounded-lg block w-full p-2.5"
           placeholder="john@email.com"
           required
         />
-      </div>
-      <div className="mb-5">
-        <label for="password" className="block mb-2 text-base font-medium text-gray-900">
-          Password
-        </label>
-        <input
-          type="password"
-          name="password"
-          onChange={handleChange}
-          value={loginInput.password}
-          id="password"
-          className="bg-transparent border border-gray-300 text-gray-900 text-base rounded-lg block w-full p-2.5"
-          placeholder="insert your password ..."
-          required
-        />
-        <div className="flex justify-end mt-2">
-          <Link href="/auth/forgot-password" id="helper-forgot-password" className="text-sm text-zinc-400 hover:underline">
-            Forgot password?
-          </Link>
-        </div>
       </div>
       <button
         type="submit"

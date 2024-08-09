@@ -13,7 +13,7 @@ export default function Register() {
           <FormRegister />
           <p>
             Already have an account?{' '}
-            <Link href={'/login'} className="text-secondary">
+            <Link href={'/auth/login'} className="text-secondary">
               Login
             </Link>
           </p>

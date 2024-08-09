@@ -60,7 +60,7 @@ export default function BikeTable({ bikes, categories, pagination }) {
               <Popover>
                 <PopoverTrigger asChild>
                   <Button variant="ghost" size="icon" className="rounded-full">
-                    <i className="fa-solid fa-list-ul" />
+                    <i aria-hidden className="fa-solid fa-list-ul" />
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent className="w-28 p-0">

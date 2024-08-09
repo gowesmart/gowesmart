@@ -9,13 +9,13 @@ export default function ProtectedRoute({ children }) {
   const pathname = usePathname();
   const { id } = useParams();
   const { currentUser } = useAuthStore();
-  const mustLogin = ["/cart", `/cart/${id}`];
-  const alreadyLoggedIn = ["/login", "/register"];
+  const mustLogin = ["/cart"];
+  const AlreadyLoggedIn = ["/auth/login", "/auth/register"];
   const mustAdmin = ["/dashboard"];
 
   useEffect(() => {
     if (currentUser) {
-      if (alreadyLoggedIn.includes(pathname)) {
+      if (AlreadyLoggedIn.includes(pathname)) {
         router.push("/");
       }
       if (mustAdmin.includes(pathname) && currentUser.role !== "ADMIN") {
@@ -23,7 +23,7 @@ export default function ProtectedRoute({ children }) {
       }
     } else {
       if (mustLogin.includes(pathname)) {
-        router.push("/login");
+        router.push("/auth/login");
       }
     }
   }, [pathname]);
