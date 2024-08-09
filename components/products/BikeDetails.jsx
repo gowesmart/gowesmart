@@ -137,4 +137,4 @@ const BikeDetails = ({ bike, reviews }) => {
     )
 }
 
-export default BikeDetails
+export default BikeDetails;

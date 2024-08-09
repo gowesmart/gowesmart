@@ -13,8 +13,8 @@ export default function Login() {
           <FormLogin />
           <p>
             Don't have an account?{' '}
-            <Link href={'/register'} className="text-secondary">
-              Register
+            <Link href={'/auth/register'} className="text-secondary">
+              Register Now
             </Link>
           </p>
         </div>
