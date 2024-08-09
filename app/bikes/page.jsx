@@ -14,8 +14,7 @@ const Bikes = () => {
     const [isError, setIsError] = useState(false)
     const [page, setPage] = useState({ current: 1, total: 1, items: [] })
     const [bikes, setBikes] = useState([])
-    const { filters, setFilters, clearFilters } = useFilter()
-    const [adaptFilter, setAdaptFilter] = useState(0)
+    const { filters, setFilters, clearFilters, adaptFilter, increaseAdaptFilter, decreaseAdaptFilter } = useFilter()
 
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: "auto" });
@@ -73,13 +72,13 @@ const Bikes = () => {
 
             if (value != "") {
                 if (filters[field].isAdapt === false) {
-                    setAdaptFilter(prev => prev + 1)
+                    increaseAdaptFilter()
                 }
 
                 setFilters({ [field]: { value, isAdapt: true } })
             } else {
                 if (filters[field].isAdapt === true) {
-                    setAdaptFilter(prev => prev - 1)
+                    decreaseAdaptFilter(prev => prev - 1)
                 }
 
                 setFilters({ [field]: { value, isAdapt: false } })
@@ -129,7 +128,6 @@ const Bikes = () => {
                                             <p className="text-secondary">adapt filter ({adaptFilter})</p>
                                             <button type="button" onClick={() => {
                                                 clearFilters()
-                                                setAdaptFilter(0)
                                             }} className="font-light underline hover:opacity-80">clear all</button>
                                         </div>
                                         <button type="submit" className="w-full bg-secondary rounded-md py-2">apply</button>

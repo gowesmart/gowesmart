@@ -26,8 +26,12 @@ const useFilter = create((set) => ({
             minYear: { value: "", isAdapt: false },
             maxYear: { value: "", isAdapt: false },
             marker: false
-        }
-    }))
+        },
+        adaptFilter: 0
+    })),
+    adaptFilter: 0,
+    increaseAdaptFilter: () => set((state) => ({ adaptFilter: state.adaptFilter + 1 })),
+    decreaseAdaptFilter: () => set((state) => ({ adaptFilter: state.adaptFilter - 1 }))
 }))
 
 export default useFilter

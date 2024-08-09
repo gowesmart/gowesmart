@@ -1,12 +1,16 @@
-import Navbar from "@/components/dashboard/Navbar"
+import Navbar from "@/components/dashboard/Navbar";
 
-export default function layout({children}) {
+export const metadata = {
+  title: "Dashboard | Gowesmart",
+};
+
+export default function layout({ children }) {
   return (
     <div className="pt-[80px]">
-      <div className="container flex gap-5 flex-col mx-auto xl:max-w-[1280px] py-7">
-        <Navbar/>
+      <div className="container mx-auto flex flex-col gap-5 py-7 xl:max-w-[1280px]">
+        <Navbar />
         {children}
       </div>
     </div>
-  )
+  );
 }
