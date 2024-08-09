@@ -2,11 +2,12 @@
 
 import useAuthStore from "@/store/authStore";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { useRef, useState } from "react";
 import { Button } from "./global/Button";
 import { cn } from "@/lib/cn";
 import HeaderModal from './modal/HeaderModal';
+import useFilter from "@/store/filterStore";
 
 const Header = () => {
   const [isLight, setIsLight] = useState(false);
@@ -14,6 +15,9 @@ const Header = () => {
   const [isModal, setIsModal] = useState(false)
   const { currentUser, logOut } = useAuthStore();
   const router = useRouter();
+  const inputRef = useRef(null)
+  const pathname = usePathname()
+  const { filters, setFilters } = useFilter()
 
   const handleLight = () => {
     setIsLight((prev) => !prev);
@@ -29,6 +33,17 @@ const Header = () => {
     router.push("/");
   };
 
+  const handleSearch = (e) => {
+    e.preventDefault()
+    inputRef.current.blur()
+
+    if (pathname === "/bikes") {
+      setFilters({ marker: true })
+    } else {
+      router.push("/bikes")
+    }
+  }
+
   return (
     <header className={`bg-primary h-[80px] text-[14px] border-b border-accent fixed top-0 right-0 left-0 ${isLight ? 'shadow-secondary shadow-xl' : 'shadow-sm'} z-50`}>
       <nav className="container mx-auto h-full flex justify-between items-center xl:max-w-[1280px]">
@@ -36,8 +51,11 @@ const Header = () => {
           <h1 className="text-[24px] font-semibold">gowesmart</h1>
         </Link>
         <div className="flex gap-3">
-          <form className="relative z-50 onClick={() => { setIsModal(false) }}">
+          <form onSubmit={(e) => { handleSearch(e) }} className="relative z-50 onClick={() => { setIsModal(false) }}">
             <input
+              ref={inputRef}
+              onChange={(e) => { setFilters({ name: e.target.value }) }}
+              value={filters.name}
               onClick={() => { setIsModal(false) }}
               placeholder="search for bikes...."
               type="text"
