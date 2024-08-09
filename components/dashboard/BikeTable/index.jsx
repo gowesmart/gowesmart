@@ -45,7 +45,7 @@ export default function BikeTable({ page }) {
       <TableHeader>
         <TableRow>
           <TableHead className="w-[200px]">Brand</TableHead>
-          <TableHead>Name</TableHead>
+          <TableHead className="w-[250px]">Name</TableHead>
           <TableHead>Price</TableHead>
           <TableHead className="text-right">Action</TableHead>
         </TableRow>
@@ -53,7 +53,7 @@ export default function BikeTable({ page }) {
       <TableBody>
         {isFetching ? (
           <TableRow>
-            <TableCell colSpan={5}>
+            <TableCell colSpan={4}>
               <Loading className="h-[45vh]" />
             </TableCell>
           </TableRow>

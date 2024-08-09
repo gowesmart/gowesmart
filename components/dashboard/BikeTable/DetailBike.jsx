@@ -52,21 +52,30 @@ export default function DetailBike({ bike, categories }) {
   });
 
   const onSubmit = async (data) => {
-    console.log(data);
-    return;
-
-    const imageName = `${Date.now()}-${data.image_url[0].name}`;
+    let imageName;
+    const isImageUpdated = data.image_url.length > 0;
+    if (isImageUpdated) {
+      imageName = `${Date.now()}-${data.image_url[0].name}`;
+    } else {
+      data.image_url = bike.image_url;
+    }
     try {
-      await uploadImage(data.image_url[0], imageName);
-      data.image_url = await getImageURL(imageName);
-      await axiosInstance.patch("/api/bikes", data, {
+      if (isImageUpdated) {
+        await uploadImage(data.image_url[0], imageName);
+        data.image_url = await getImageURL(imageName);
+      }
+      await axiosInstance.patch(`/api/bikes/${bike.id}`, data, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      await deleteImage(extractImageUrl(bike.image_url));
+      if (isImageUpdated) {
+        await deleteImage(extractImageUrl(bike.image_url));
+      }
       toast({ title: "Success", description: "Bike updated successfully" });
       router.refresh();
     } catch (error) {
-      await deleteImage(imageName);
+      if (isImageUpdated) {
+        await deleteImage(imageName);
+      }
       toast({
         variant: "destructive",
         title: "Error",
@@ -144,15 +153,14 @@ export default function DetailBike({ bike, categories }) {
               <Controller
                 name="category_id"
                 control={control}
-                rules={{ valueAsNumber: true }}
+                defaultValue={+bike.category_id}
                 render={({ field }) => (
                   <Select
-                    onValueChange={(value) => field.onChange(+value)}
+                    onValueChange={(val) => field.onChange(+val)}
                     value={field.value?.toString()}
-                    defaultValue={bike.category_id?.toString()}
                   >
                     <SelectTrigger>
-                      <SelectValue placeholder="Select a category" />
+                      <SelectValue placeholder={"Select a category"} />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectGroup>

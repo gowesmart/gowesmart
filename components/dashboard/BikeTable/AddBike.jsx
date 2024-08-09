@@ -126,10 +126,10 @@ export default function AddBike({ categories }) {
                 {...register("stock", { valueAsNumber: true })}
               />
             </InputGroup>
-            <InputGroup error={errors.category_id?.message}>
+            <InputGroup error={errors.category?.message}>
               <Label htmlFor="category">Category</Label>
               <Controller
-                id="category_id"
+                name="category_id"
                 control={control}
                 render={({ field }) => (
                   <Select onValueChange={(value) => field.onChange(+value)}>
