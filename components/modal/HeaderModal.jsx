@@ -43,6 +43,7 @@ const HeaderModal = ({ isModal, setIsModal, handleLogout, role }) => {
                 </div>
                 <p className="pr-[25px] text-left font-semibold">History</p>
               </Link>
+<<<<<<< HEAD
               <Link
                 href={"/auth/reset-password"}
                 className="flex items-center rounded-md duration-150 hover:bg-secondary"
@@ -54,6 +55,8 @@ const HeaderModal = ({ isModal, setIsModal, handleLogout, role }) => {
                   Reset Password
                 </p>
               </Link>
+=======
+>>>>>>> main
             </>
           ) : (
             <>

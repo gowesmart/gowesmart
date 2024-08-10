@@ -20,7 +20,7 @@ const BikeDetails = ({ bike, reviews }) => {
 
     const handleBuy = async () => {
         if (!currentUser) {
-            router.push("/login")
+            router.push("/auth/login")
             return
         }
 
@@ -60,7 +60,7 @@ const BikeDetails = ({ bike, reviews }) => {
                             </section>
                             <section className="flex gap-10 mt-10">
                                 <Image src={bike.image_url} width={635} height={450} alt="bike" priority={true} />
-                                <div className="w-full">
+                                <div className="w-[50%]">
                                     <div className="pb-3 border-b border-white">
                                         <h1 className="text-[36px] font-bold">{bike.name}</h1>
                                         <p className="flex items-center gap-2 text-[14px] pt-1">
@@ -127,7 +127,7 @@ const BikeDetails = ({ bike, reviews }) => {
                         </div>
                         <div className="container xl:max-w-[1280px] mx-auto mt-20 w-full flex flex-col gap-[25px]">
                             <h2 className="text-[24px] font-bold">Reviews</h2>
-                            <Link href={"/login"}><button className="bg-secondary w-full py-6 font-bold rounded-md">Please Login to Add a Review</button></Link>
+                            <Link href={"/auth/login"}><button className="bg-secondary w-full py-6 font-bold rounded-md">Please Login to Add a Review</button></Link>
                             <Review />
                             <Review />
                         </div>
