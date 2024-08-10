@@ -1,7 +1,7 @@
 "use client";
 import useAuthStore from "@/store/authStore";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Button } from "../global/Button";
 import { useToast } from "@/hooks/useToast";
@@ -22,6 +22,8 @@ export default function FormLogin() {
   });
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const searchParams = useSearchParams();
+  const redirectUrl = searchParams.get("redirect") || "/";
 
   const handleChange = (e) => {
     setLoginInput({
@@ -37,7 +39,7 @@ export default function FormLogin() {
 
   useEffect(() => {
     if (currentUser) {
-      router.push("/");
+      router.push(redirectUrl);
     }
   }, [currentUser]);
 
@@ -57,10 +59,8 @@ export default function FormLogin() {
         email: "",
         password: "",
       });
-      router.push("/");
+      router.push(redirectUrl);
     } catch (error) {
-      console.log(error);
-
       toast({
         variant: "destructive",
         title: "Username or password is incorrect🚫",

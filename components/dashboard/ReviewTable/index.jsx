@@ -29,7 +29,7 @@ export default function ReviewTable({ page }) {
     `/api/reviews?${new URLSearchParams({ page: +page || 1 }).toString()}`,
     {
       headers: { Authorization: `Bearer ${token}` },
-    }
+    },
   );
 
   // Redirect to the first page if the current page exceeds total pages
@@ -56,7 +56,7 @@ export default function ReviewTable({ page }) {
         {isFetching ? (
           <TableRow>
             <TableCell colSpan={6} className="text-center">
-              <Loading />
+              <Loading className="h-[45vh]" />
             </TableCell>
           </TableRow>
         ) : error ? (

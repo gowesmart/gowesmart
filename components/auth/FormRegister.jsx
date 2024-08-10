@@ -43,9 +43,17 @@ export default function FormRegister() {
   }, [currentUser]);
 
   const registerUser = async ({ username, email, password }) => {
+    if (password.length < 8) {
+      toast({
+        variant: "destructive",
+        title: "Password too short",
+        description: "Password must be at least 8 characters",
+      });
+      return;
+    }
     setIsLoading(true);
     try {
-      await axiosInstance("/api/auth/register", {
+      await axiosInstance.post("/api/auth/register", {
         username,
         email,
         password,
@@ -122,6 +130,7 @@ export default function FormRegister() {
             onChange={handleChange}
             value={registerInput.password}
             id="password"
+            min="6"
             placeholder="Your secret password"
             className="bg-accent py-5 text-base"
             required

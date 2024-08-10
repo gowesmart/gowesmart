@@ -34,6 +34,14 @@ export default function FormResetPassword({ token }) {
   };
 
   const resetPassword = async ({ new_password, token }) => {
+    if (new_password.length < 8) {
+      toast({
+        variant: "destructive",
+        title: "Password too short",
+        description: "Password must be at least 8 characters",
+      });
+      return;
+    }
     setIsLoading(true);
     try {
       await axiosInstance.post(

@@ -51,8 +51,8 @@ export default function CartPage() {
               </tr>
             </thead>
             <tbody>
-              {console.log(cart.cart_items)}
-              {cart.cart_items.map((item) => (
+              {console.log(cart)}
+              {cart.cart_items?.map((item) => (
                 <tr key={item.id} className="border-b border-accent">
                   <td className="px-6 py-4">{item.id}</td>
                   <td className="px-6 py-4">
