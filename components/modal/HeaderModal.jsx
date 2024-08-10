@@ -48,7 +48,7 @@ const HeaderModal = ({ isModal, setIsModal, handleLogout, role }) => {
                 className="flex items-center rounded-md duration-150 hover:bg-secondary"
               >
                 <div className="flex h-[50px] w-[50px] items-center justify-center">
-                  <i aria-hidden class="fa-solid fa-key"></i>
+                  <i aria-hidden className="fa-solid fa-key"></i>
                 </div>
                 <p className="pr-[25px] text-left font-semibold">
                   Reset Password
