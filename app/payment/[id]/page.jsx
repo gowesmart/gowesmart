@@ -18,13 +18,7 @@ const Payment = () => {
     const [isError, setIsError] = useState(false)
     const { currentUser, token } = useAuthStore()
     const router = useRouter()
-    const [payment, setPayment] = useState({
-        isLoading: false,
-        isFinished: false,
-        status: "",
-        title: "",
-        message: ""
-    })
+    const [payment, setPayment] = useState({ isLoading: false })
 
     useEffect(() => {
         if (!currentUser) {
@@ -65,34 +59,34 @@ const Payment = () => {
         }
     }
 
-    const handlePayment = async () => {
-        setPayment(prev => ({ ...prev, isLoading: true }))
+    // const handlePayment = async () => {
+    //     setPayment(prev => ({ ...prev, isLoading: true }))
 
-        try {
-            await axios.patch(`${baseUrl}/api/transactions/payment/${transaction.id}`, {}, {
-                headers: {
-                    "Authorization": `Bearer ${token}`
-                }
-            })
+    //     try {
+    //         await axios.patch(`${baseUrl}/api/transactions/payment/${transaction.id}`, {}, {
+    //             headers: {
+    //                 "Authorization": `Bearer ${token}`
+    //             }
+    //         })
 
-            setPayment({
-                isLoading: false,
-                isFinished: true,
-                status: "success",
-                title: "Payment Success!",
-                message: "Your transaction has been successfully completed."
-            })
-        } catch (error) {
-            setPayment({
-                isLoading: false,
-                isFinished: true,
-                status: "error",
-                title: "Payment Failed!",
-                message: "We're sorry, your transaction could not be completed."
-            })
-            console.error(error)
-        }
-    }
+    //         setPayment({
+    //             isLoading: false,
+    //             isFinished: true,
+    //             status: "success",
+    //             title: "Payment Success!",
+    //             message: "Your transaction has been successfully completed."
+    //         })
+    //     } catch (error) {
+    //         setPayment({
+    //             isLoading: false,
+    //             isFinished: true,
+    //             status: "error",
+    //             title: "Payment Failed!",
+    //             message: "We're sorry, your transaction could not be completed."
+    //         })
+    //         console.error(error)
+    //     }
+    // }
 
     return (
         <>
@@ -149,15 +143,15 @@ const Payment = () => {
                         </section>
                         <div className="mt-10 flex justify-between gap-5">
                             <Link href={"/"} className="border border-accent hover:bg-gray-dark duration-150 py-4 w-[50%] rounded-md flex justify-center">Cancel</Link>
-                            <button onClick={handlePayment} className={`bg-secondary py-4 w-[50%] rounded-md hover:opacity-80 duration-150 ${payment.isLoading && "opacity-80 cursor-default"}`}>{payment.isLoading ? <i className="fa-solid fa-spinner fa-spin"></i> : "Pay Now"}</button>
+                            <Link href={transaction.payment_link} className={`bg-secondary py-4 w-[50%] rounded-md hover:opacity-80 flex justify-center duration-150 ${payment.isLoading && "opacity-80 cursor-default"}`}>{payment.isLoading ? <i className="fa-solid fa-spinner fa-spin"></i> : "Pay Now"}</Link>
                         </div>
-                        {payment.isFinished && <Popup title={payment.title} type={payment.status} message={payment.message} children={
+                        {/* {payment.isFinished && <Popup title={payment.title} type={payment.status} message={payment.message} children={
                             payment.status === "success" ?
                                 <Link onClick={() => { setPayment(prev => ({ ...prev, isFinished: false })) }} href={"/"} className="bg-secondary w-full text-white py-2 rounded-md hover:opacity-80 duration-150 text-center">Ok</Link>
                                 :
                                 <button className="bg-secondary w-full text-white py-2 rounded-md hover:opacity-80 duration-150 text-center" onClick={() => { setPayment(prev => ({ ...prev, isFinished: false })) }}>Ok</button>
                         } />
-                        }
+                        } */}
                     </main>
             }
         </>
