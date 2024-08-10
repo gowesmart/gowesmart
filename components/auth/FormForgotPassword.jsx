@@ -9,6 +9,8 @@ import { InputGroup } from "../global/InputGroup";
 import { Label } from "../global/Label";
 import { useToast } from "@/hooks/useToast";
 import axiosInstance from "@/lib/axios";
+import { ToastAction } from "../global/Toast/toast";
+import Link from "next/link";
 
 export default function FormForgotPassword() {
   const { toast } = useToast();
@@ -49,10 +51,17 @@ export default function FormForgotPassword() {
       toast({
         title: `Forgot password requested`,
         description: "Now lets reset yout password",
-      });
-      setForgotPasswordInput({
-        username: "",
-        email: "",
+        action: (
+          <ToastAction altText="Reset password" asChild>
+            <Button variant="outline" asChild>
+              <Link
+                href={`/auth/reset-password?${new URLSearchParams({ token: forgot_password_token }).toString()}`}
+              >
+                Lets go
+              </Link>
+            </Button>
+          </ToastAction>
+        ),
       });
       router.push(
         `/auth/reset-password?${new URLSearchParams({ token: forgot_password_token }).toString()}`,

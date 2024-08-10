@@ -7,22 +7,21 @@ import { useEffect } from "react";
 export default function ProtectedRoute({ children }) {
   const router = useRouter();
   const pathname = usePathname();
-  const currentUser = useAuthStore((state) => state.currentUser);
+  const currentUser = useAuthStore((s) => s.currentUser);
   const mustLogin =
     pathname.startsWith("/cart") || pathname.startsWith("/dashboard");
-  const alreadyLoggedIn = ["/login", "/register"];
 
   useEffect(() => {
     if (currentUser) {
-      if (alreadyLoggedIn.includes(pathname)) {
+      if (pathname.startsWith("/auth")) {
         router.push("/");
       }
-      if (pathname.startsWith("/dashboard") && currentUser.role !== "ADMIN") {
+      if (pathname.startsWith("/dashboard") && currentUser?.role !== "ADMIN") {
         router.push("/");
       }
     } else {
       if (mustLogin) {
-        router.push("/login");
+        router.push(`/auth/login?redirect=${encodeURIComponent(pathname)}`);
       }
     }
   }, [pathname]);
