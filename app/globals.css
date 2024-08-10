@@ -4,7 +4,7 @@
 
 @keyframes come-in {
   from {
-    margin-top: 0px;
+    margin-top: -100px;
     opacity: 0;
   }
 
@@ -21,17 +21,17 @@
   }
 
   to {
-    margin-top: 0px;
+    margin-top: -100px;
     opacity: 0;
   }
 }
 
 .header-modal-in {
-  animation: come-in 70ms forwards;
+  animation: come-in 200ms forwards;
 }
 
 .header-modal-out {
-  animation: come-out 70ms forwards;
+  animation: come-out 200ms forwards;
 }
 
 @keyframes modal-in {
@@ -59,12 +59,45 @@
 }
 
 .modal-in {
-  animation: modal-in 70ms forwards;
+  animation: modal-in 100ms forwards;
 }
 
 .modal-out {
-  animation: modal-out 70ms forwards;
+  animation: modal-out 100ms forwards;
 }
+
+@keyframes bottom-in {
+  from {
+    opacity: 0;
+    bottom: -100px;
+  }
+
+  to {
+    opacity: 1;
+    bottom: 15px;
+  }
+}
+
+@keyframes bottom-out {
+  from {
+    opacity: 1;
+    bottom: 15px;
+  }
+
+  to {
+    opacity: 0;
+    bottom: -100px;
+  }
+}
+
+.bottom-in {
+  animation: bottom-in 200ms forwards;
+}
+
+.bottom-out {
+  animation: bottom-out 200ms forwards;
+}
+
 @layer base {
   :root {
     --primary: 0 0% 11%; /* hsl(0, 0%, 11%) */
