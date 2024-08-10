@@ -3,7 +3,7 @@ import Link from "next/link"
 
 const BigProductCard = ({ bike }) => {
     return (
-        <Link href={`/bikes/${bike.id}`} className="w-[600px] h-[550px] p-10 hover:scale-105 duration-200 rounded-md border border-accent bg-gradient-to-br from-[rgba(67,67,67,0.2)] to-[rgba(14,14,14,0.2)] flex flex-col justify-center items-start">
+        <Link href={`/bikes/${bike.id}`} className="w-[600px] h-[550px] p-10 hover:scale-105 duration-200 rounded-md border border-accent bg-gradient-to-br from-[rgba(67,67,67,0.2)] to-[rgba(14,14,14,0.2)] flex-col justify-center items-start hidden xl:flex">
             <Image src={bike.image_url} width={500} height={500} alt="speda" className="mb-3" priority={true} />
             <p className="font-semibold text-[20px]">{bike.name}</p>
             <p className="text-[14px]">{bike.description}</p>

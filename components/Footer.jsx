@@ -1,9 +1,9 @@
 const Footer = () => {
     return (
         <footer className="text-white">
-            <section className="bg-neutral">
-                <div className="container mx-auto flex flex-col justify-center items-center py-20 gap-20">
-                    <div className="flex justify-center gap-32 items-center w-full">
+            <section className="bg-neutral px-10 xl:px-0">
+                <div className="container mx-auto flex flex-col justify-center xl:items-center py-20 gap-10 xl:gap-20">
+                    <div className="flex flex-col md:flex-row justify-center gap-10 xl:gap-32 xl:items-center w-full">
                         <div>
                             <p className="font-semibold text-[20px] mb-5">GOWESMART</p>
                             <ul className="text-[14px] font-light">
@@ -39,8 +39,8 @@ const Footer = () => {
                         </div>
                     </div>
                     <div>
-                        <p className="font-semibold text-[20px] text-center mb-4">FOLLOW US</p>
-                        <ul className="text-[24px] flex justify-center items-center gap-7">
+                        <p className="font-semibold text-[20px] md:text-center mb-4">FOLLOW US</p>
+                        <ul className="text-[24px] flex md:justify-center items-center gap-7">
                             <i aria-hidden className="fa-brands fa-facebook"></i>
                             <i aria-hidden className="fa-brands fa-instagram"></i>
                             <i aria-hidden className="fa-brands fa-twitter"></i>
@@ -50,7 +50,7 @@ const Footer = () => {
                 </div>
             </section>
             <section className="bg-primary">
-                <div className="container text-[14px] mx-auto flex justify-center items-center p-5">
+                <div className="container text-[10px] xl:text-[14px] mx-auto flex justify-center items-center p-5">
                     COPYRIGHT © 2024 GOWESMART. ALL RIGHTS RESERVED.
                 </div>
             </section>
