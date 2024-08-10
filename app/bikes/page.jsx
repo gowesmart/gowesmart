@@ -15,6 +15,7 @@ const Bikes = () => {
     const [page, setPage] = useState({ current: 1, total: 1, items: [] })
     const [bikes, setBikes] = useState([])
     const { filters, setFilters, clearFilters, adaptFilter, increaseAdaptFilter, decreaseAdaptFilter } = useFilter()
+    const [categories, setCategories] = useState([])
 
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: "auto" });
@@ -33,7 +34,12 @@ const Bikes = () => {
         setIsLoading(true)
 
         try {
-            const res = await axios.get(`${baseUrl}/api/bikes?limit=9&page=${currentPage ? currentPage : page.current}&name=${filters.name}&category_id=${filters.categoryId.value}&min_price=${filters.minPrice.value}&max_price=${filters.maxPrice.value}&min_year=${filters.minYear.value}&max_year=${filters.maxYear.value}`)
+            const [res, categoryRes] = await Promise.all([
+                axios.get(`${baseUrl}/api/bikes?limit=9&page=${currentPage ? currentPage : page.current}&name=${filters.name}&category_id=${filters.categoryId.value}&min_price=${filters.minPrice.value}&max_price=${filters.maxPrice.value}&min_year=${filters.minYear.value}&max_year=${filters.maxYear.value}`),
+                axios.get(`${baseUrl}/api/categories`)
+            ])
+
+            setCategories(categoryRes.data.payload)
             setBikes(res.data.payload)
 
             const totalPages = res.data.metadata.total_pages
@@ -66,11 +72,13 @@ const Bikes = () => {
         let value = e.target.value
 
         if (/^\d*$/.test(value)) {
-            if (value[0] == 0) {
-                return
+            if (field != "categoryId") {
+                if (value[0] == 0) {
+                    return
+                }
             }
 
-            if (value != "") {
+            if (value != "" && value != 0) {
                 if (filters[field].isAdapt === false) {
                     increaseAdaptFilter()
                 }
@@ -104,8 +112,13 @@ const Bikes = () => {
                                     }} className="w-[280px] bg-[#252525] border border-accent rounded-md gap-5 p-7 flex flex-col justify-center items-center h-fit">
                                         <div className="w-full flex flex-col gap-2">
                                             <label>category</label>
-                                            <select className="bg-[#434343] rounded-md py-2 px-3">
-                                                <option>all category</option>
+                                            <select onChange={(e) => { handleFilter(e, "categoryId") }} value={filters.categoryId.value} className="bg-[#434343] rounded-md py-2 px-3">
+                                                <option value={0}>All</option>
+                                                {
+                                                    categories.map((item, index) => (
+                                                        <option key={index} value={item.ID}>{item.Name}</option>
+                                                    ))
+                                                }
                                             </select>
                                         </div>
                                         <div className="w-full flex flex-col gap-2">
