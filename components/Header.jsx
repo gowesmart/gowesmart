@@ -46,18 +46,31 @@ const Header = () => {
     <header
       className={`fixed left-0 right-0 top-0 h-[80px] border-b border-accent bg-primary text-[14px] ${isLight ? "shadow-xl shadow-secondary" : "shadow-sm"} z-50`}
     >
-      <nav className="container mx-auto flex h-full items-center justify-between xl:max-w-[1280px]">
+      <nav className="container mx-auto flex h-full items-center justify-between xl:w-[1280px] px-5 xl:px-0">
         <Link
           onClick={() => {
             setIsModal(false);
           }}
           href={"/"}
-          className="z-50"
+          className="z-50 hidden xl:inline-block"
         >
           <h1 className="text-[24px] font-semibold">gowesmart</h1>
         </Link>
-        <div className="flex gap-3">
-          <form onSubmit={(e) => { handleSearch(e) }} className="relative z-50 onClick={() => { setIsModal(false) }}">
+        <div className="flex gap-3 w-full xl:w-fit">
+          <button
+            onClick={() => {
+              setIsModal(false);
+              handleLight();
+            }}
+            className={`z-50 xl:hidden flex h-[40px] min-w-[40px]  items-center justify-center duration-150 hover:bg-[#252525] ${isLight && "text-yellow-400"} rounded-md border border-accent`}
+          >
+            <i
+              className={cn(`fa-solid fa-bolt`, {
+                "fa-shake": isShake,
+              })}
+            />
+          </button>
+          <form onSubmit={(e) => { handleSearch(e) }} className="relative z-50 xl:w-[480px] w-full mr-3 xl:mr-0">
             <input
               ref={inputRef}
               onChange={(e) => { setFilters({ name: e.target.value }) }}
@@ -65,7 +78,7 @@ const Header = () => {
               onClick={() => { setIsModal(false) }}
               placeholder="search for bikes...."
               type="text"
-              className="w-[480px] rounded-md border border-accent bg-primary py-2 pl-3 pr-10 outline-none duration-150 hover:bg-[#252525] focus:bg-primary"
+              className="w-full rounded-md border border-accent bg-primary py-2 pl-3 pr-10 outline-none duration-150 hover:bg-[#252525] focus:bg-primary"
             />
             <button
               className="absolute bottom-0 right-0 top-0 px-3"
@@ -80,7 +93,7 @@ const Header = () => {
               handleLight();
             }}
             href={"/cart"}
-            className={`z-50 px-3 py-2 duration-150 hover:bg-[#252525] ${isLight && "text-yellow-400"} rounded-md border border-accent`}
+            className={`z-50 hidden xl:flex h-[40px] w-[40px] items-center justify-center duration-150 hover:bg-[#252525] ${isLight && "text-yellow-400"} rounded-md border border-accent`}
           >
             <i
               className={cn(`fa-solid fa-bolt`, {
@@ -89,7 +102,9 @@ const Header = () => {
             />
           </button>
         </div>
-        <div className="flex items-center gap-3">
+
+        {/* desktop */}
+        <div className="hidden xl:flex items-center gap-3">
           {currentUser ? (
             <>
               <Link
@@ -125,9 +140,9 @@ const Header = () => {
                 onClick={() => {
                   setIsModal((prev) => !prev);
                 }}
-                className="z-50 flex h-[40px] w-[40px] items-center justify-center rounded-md border border-accent duration-150 hover:bg-[#252525]"
+                className="z-50 bg-secondary flex h-[40px] w-[40px] items-center justify-center rounded-md duration-150 hover:opacity-80"
               >
-                <i aria-hidden className="fa-solid fa-user"></i>
+                <i aria-hidden className={`fa-solid ${isModal ? "fa-xmark" : "fa-user"}`}></i>
               </button>
               <HeaderModal
                 isModal={isModal}
@@ -167,12 +182,30 @@ const Header = () => {
               </Link>
               <Link
                 href={"/auth/login"}
-                className="rounded-md bg-secondary px-7 py-2 duration-150 hover:bg-opacity-80"
+                className="rounded-md bg-secondary px-7 py-2 duration-150 hover:opacity-80"
               >
                 Login
               </Link>
             </>
           )}
+        </div>
+
+        {/* mobile */}
+        <div className="flex xl:hidden">
+          <button
+            onClick={() => {
+              setIsModal(prev => !prev);
+            }}
+            className="z-50 flex h-[40px] w-[40px] items-center justify-center rounded-md border border-accent duration-150 hover:bg-[#252525]"
+          >
+            <i aria-hidden className={`fa-solid ${isModal ? "fa-xmark" : "fa-bars"}`}></i>
+          </button>
+          <HeaderModal
+            isModal={isModal}
+            setIsModal={setIsModal}
+            handleLogout={handleLogout}
+            role={currentUser ? currentUser.role : null}
+          />
         </div>
       </nav>
     </header>
