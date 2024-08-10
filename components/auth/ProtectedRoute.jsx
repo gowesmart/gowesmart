@@ -1,31 +1,39 @@
 "use client";
 
 import useAuthStore from "@/store/authStore";
-import { usePathname, useRouter } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 export default function ProtectedRoute({ children }) {
   const router = useRouter();
   const pathname = usePathname();
-  const currentUser = useAuthStore((state) => state.currentUser);
-  const mustLogin =
-    pathname.startsWith("/cart") || pathname.startsWith("/dashboard");
-  const alreadyLoggedIn = ["/login", "/register"];
+  const { id } = useParams();
+  const { currentUser } = useAuthStore();
+  const mustLogin = ["/cart", `/payment/${id}`];
+  const AlreadyLoggedIn = ["/auth/login", "/auth/register"];
+  const mustAdmin = [
+    "/dashboard",
+    "/dashboard/user",
+    "/dashboard/bike",
+    "/dashboard/category",
+    "/dashboard/transaction",
+    "/dashboard/review",
+  ];
 
   useEffect(() => {
     if (currentUser) {
-      if (alreadyLoggedIn.includes(pathname)) {
+      if (AlreadyLoggedIn.includes(pathname)) {
         router.push("/");
       }
-      if (pathname.startsWith("/dashboard") && currentUser.role !== "ADMIN") {
+      if (mustAdmin.includes(pathname) && currentUser.role !== "ADMIN") {
         router.push("/");
       }
     } else {
-      if (mustLogin) {
+      if (mustLogin.includes(pathname)) {
         router.push("/auth/login");
       }
     }
   }, [pathname]);
 
-  return children;
+  return <>{children}</>;
 }

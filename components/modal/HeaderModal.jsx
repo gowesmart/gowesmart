@@ -43,20 +43,6 @@ const HeaderModal = ({ isModal, setIsModal, handleLogout, role }) => {
                 </div>
                 <p className="pr-[25px] text-left font-semibold">History</p>
               </Link>
-<<<<<<< HEAD
-              <Link
-                href={"/auth/reset-password"}
-                className="flex items-center rounded-md duration-150 hover:bg-secondary"
-              >
-                <div className="flex h-[50px] w-[50px] items-center justify-center">
-                  <i aria-hidden className="fa-solid fa-key"></i>
-                </div>
-                <p className="pr-[25px] text-left font-semibold">
-                  Reset Password
-                </p>
-              </Link>
-=======
->>>>>>> main
             </>
           ) : (
             <>
