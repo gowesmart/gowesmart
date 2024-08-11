@@ -4,7 +4,7 @@ import Image from "next/image"
 import Link from "next/link"
 import Quantity from "../global/Quantity"
 import Review from "../review/Review"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import useAuthStore from "@/store/authStore"
 import Error from "@/app/error"
@@ -17,10 +17,19 @@ const BikeDetails = ({ bike, reviews }) => {
     const { currentUser, token } = useAuthStore()
     const [isLoading, setIsLoading] = useState(false)
     const [isError, setIsError] = useState(false)
+    const prevQty = sessionStorage.getItem("quantity")
+
+    useEffect(() => {
+        if (prevQty) {
+            setQuantity(prevQty)
+            sessionStorage.removeItem("quantity")
+        }
+    }, [])
 
     const handleBuy = async () => {
         if (!currentUser) {
-            router.push("/auth/login")
+            sessionStorage.setItem("quantity", quantity)
+            router.push(`/auth/login?redirect=/bikes/${bike.id}`)
             return
         }
 
@@ -52,15 +61,15 @@ const BikeDetails = ({ bike, reviews }) => {
                     <main className="mt-[80px] pt-5 md:pt-10 pb-20">
                         <div className="container xl:max-w-[1280px] mx-auto px-5 xl:px-0">
                             <section className="hidden md:flex items-center gap-2">
-                                <Link href={"/"}>Home</Link>
+                                <Link className="hover:opacity-70 hover:underline" href={"/"}>Home</Link>
                                 <p>/</p>
-                                <Link href={"/bikes"}>Bikes</Link>
+                                <Link className="hover:opacity-70 hover:underline" href={"/bikes"}>Bikes</Link>
                                 <p>/</p>
-                                <Link href={"/"}>{bike.name}</Link>
+                                <Link className="hover:opacity-70 hover:underline" href={`/bikes/${bike.id}`}>{bike.name}</Link>
                             </section>
-                            <section className="flex flex-col xl:flex-row gap-10 mt-5 w-full">
+                            <section className="flex flex-col xl:flex-row gap-10 mt-5 w-full justify-end">
                                 <Image src={bike.image_url} width={635} height={450} alt="bike" priority={true} className="w-full xl:w-fit" />
-                                <div className="w-full xl:w-[50%]">
+                                <div className="w-full xl:max-w-[50%]">
                                     <div className="pb-3 border-b border-white">
                                         <h1 className="text-[24px] md:text-[36px] font-bold">{bike.name}</h1>
                                         <p className="flex items-center gap-2 text-[12px] md:text-[14px] pt-1">
