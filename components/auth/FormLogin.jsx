@@ -72,7 +72,7 @@ export default function FormLogin() {
 
   return (
     <form
-      className="flex w-full max-w-lg flex-col gap-4"
+      className="flex w-full md:max-w-lg flex-col gap-4"
       onSubmit={handleSubmit}
     >
       <InputGroup>
