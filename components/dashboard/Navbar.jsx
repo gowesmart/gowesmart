@@ -8,13 +8,13 @@ export default function Navbar() {
   const pathname = usePathname();
 
   return (
-    <div className="bg-accent py-2 px-4 rounded-md w-fit flex gap-3 font-semibold">
+    <div className="bg-accent py-2 px-4 rounded-md w-fit flex flex-wrap gap-3 font-semibold">
       {NAV_LINKS.map((link) => (
         <Link
           key={link.name}
           href={link.href}
           className={cn(
-            "py-1.5 px-2.5 rounded-md text-[16px] transition-all text-sm",
+            "py-1.5 px-2.5 rounded-md text-[12px] md:text-sm transition-all",
             {
               "bg-white text-black": pathname === link.href,
               "hover:bg-black/20": pathname !== link.href,
