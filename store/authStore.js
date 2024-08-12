@@ -40,7 +40,7 @@ const useAuthStore = create(
           );
           set({ cartUser: data.payload });
         } catch (error) {
-          console.log(error.code);
+          set({ cartUser: null });
         }
       },
     }),

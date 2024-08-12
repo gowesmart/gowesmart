@@ -65,6 +65,7 @@ const Header = () => {
             className={`z-50 xl:hidden flex h-[40px] min-w-[40px]  items-center justify-center duration-150 hover:bg-[#252525] ${isLight && "text-yellow-400"} rounded-md border border-accent`}
           >
             <i
+              aria-hidden
               className={cn(`fa-solid fa-bolt`, {
                 "fa-shake": isShake,
               })}
@@ -92,10 +93,11 @@ const Header = () => {
               setIsModal(false);
               handleLight();
             }}
-            href={"/cart"}
+            href={"/user/cart"}
             className={`z-50 hidden xl:flex h-[40px] w-[40px] items-center justify-center duration-150 hover:bg-[#252525] ${isLight && "text-yellow-400"} rounded-md border border-accent`}
           >
             <i
+              aria-hidden
               className={cn(`fa-solid fa-bolt`, {
                 "fa-shake": isShake,
               })}
@@ -116,17 +118,15 @@ const Header = () => {
               >
                 <i aria-hidden className="fa-solid fa-house"></i>
               </Link>
-              {currentUser.role === "USER" && (
-                <Link
-                  onClick={() => {
-                    setIsModal(false);
-                  }}
-                  href={"/cart"}
-                  className="z-50 flex h-[40px] w-[40px] items-center justify-center rounded-md border border-accent duration-150 hover:bg-[#252525]"
-                >
-                  <i aria-hidden className="fa-solid fa-cart-shopping"></i>
-                </Link>
-              )}
+              <Link
+                onClick={() => {
+                  setIsModal(false);
+                }}
+                href={"/user/cart"}
+                className="z-50 flex h-[40px] w-[40px] items-center justify-center rounded-md border border-accent duration-150 hover:bg-[#252525]"
+              >
+                <i aria-hidden className="fa-solid fa-cart-shopping"></i>
+              </Link>
               <Link
                 onClick={() => {
                   setIsModal(false);
@@ -163,7 +163,7 @@ const Header = () => {
                 <i aria-hidden className="fa-solid fa-house"></i>
               </Link>
               <Link
-                href={"/cart"}
+                href={"/user/cart"}
                 className="flex h-[40px] w-[40px] items-center justify-center rounded-md border border-accent duration-150 hover:bg-[#252525]"
               >
                 <i aria-hidden className="fa-solid fa-cart-shopping"></i>

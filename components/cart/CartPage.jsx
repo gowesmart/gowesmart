@@ -96,8 +96,8 @@ export default function CartPage() {
   };
 
   return (
-    <main className="flex min-h-dvh w-full items-start pt-[80px]">
-      <section className="mx-auto flex w-full max-w-screen-xl flex-col gap-4 rounded-md border border-accent p-10">
+    <main className="flex min-h-dvh w-full items-start max-w-screen-xl mx-auto gap-4 flex-col">
+      <section className="flex w-full flex-col gap-4 rounded-md border border-accent p-10">
         <h1 className="text-2xl font-semibold">your shopping cart</h1>
         <div className="relative overflow-x-auto rounded-md">
           <table className="text-gray-500 dark:text-gray-400 w-full text-left text-sm rtl:text-right">
@@ -195,7 +195,7 @@ export default function CartPage() {
                             onClick={() => handleDelete(item.bike.id)}
                             className="flex h-[40px] w-[40px] items-center justify-center rounded-md border border-accent bg-red-700 duration-150 hover:bg-red-500"
                           >
-                            <i aria-hidden class="fa-solid fa-xmark"></i>
+                            <i aria-hidden className="fa-solid fa-xmark"></i>
                           </button>
                         </td>
                       </tr>

@@ -4,7 +4,7 @@ import { cn } from "@/lib/cn";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-export default function Navbar() {
+export default function TabUser() {
   const pathname = usePathname();
 
   return (
@@ -30,23 +30,15 @@ export default function Navbar() {
 
 const NAV_LINKS = [
   {
-    name: "User",
-    href: "/dashboard/user",
+    name: "Profile",
+    href: "/user/profile",
   },
   {
-    name: "Bike",
-    href: "/dashboard/bike",
+    name: "Cart",
+    href: "/user/cart",
   },
   {
-    name: "Category",
-    href: "/dashboard/category",
-  },
-  {
-    name: "Transaction",
-    href: "/dashboard/transaction",
-  },
-  {
-    name: "Review",
-    href: "/dashboard/review",
+    name: "History",
+    href: "/user/history",
   },
 ];

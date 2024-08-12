@@ -16,6 +16,7 @@ const Bikes = () => {
     const [bikes, setBikes] = useState([])
     const { filters, setFilters, clearFilters, adaptFilter, increaseAdaptFilter, decreaseAdaptFilter } = useFilter()
     const [categories, setCategories] = useState([])
+    const [isFilter, setIsFilter] = useState(false)
 
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: "auto" });
@@ -105,11 +106,12 @@ const Bikes = () => {
                             isError ?
                                 <Error />
                                 :
-                                <main className="mt-[80px] container xl:max-w-[1280px] mx-auto pt-10 pb-24 flex gap-10">
+                                <main className="mt-[80px] container xl:max-w-[1280px] mx-auto pt-10 pb-24 flex flex-col xl:flex-row gap-5 xl:gap-10 px-5 xl:px-0">
+                                    <button onClick={() => { setIsFilter(prev => !prev) }} className="inline-block xl:hidden bg-secondary text-[14px] py-2 w-full hover:opacity-80 duration-150 rounded-md">Filter ({adaptFilter})</button>
                                     <form onSubmit={(e) => {
                                         e.preventDefault()
                                         setFilters({ marker: true })
-                                    }} className="w-[280px] bg-[#252525] border border-accent rounded-md gap-5 p-7 flex flex-col justify-center items-center h-fit">
+                                    }} className={`w-full xl:w-[280px] bg-[#252525] border border-accent rounded-md gap-5 p-7 ${isFilter ? "flex duration-200" : "hidden"} xl:flex flex-col justify-center items-center h-fit`}>
                                         <div className="w-full flex flex-col gap-2">
                                             <label>category</label>
                                             <select onChange={(e) => { handleFilter(e, "categoryId") }} value={filters.categoryId.value} className="bg-[#434343] rounded-md py-2 px-3">
@@ -146,8 +148,8 @@ const Bikes = () => {
                                         <button type="submit" className="w-full bg-secondary rounded-md py-2">apply</button>
                                     </form>
                                     <div className="w-full">
-                                        <h1 className="text-[32px] font-semibold mb-5">products</h1>
-                                        <div className="grid grid-cols-3 justify-items-stretch gap-7 mb-10">
+                                        <h1 className="text-[24px] md::text-[32px] font-semibold mb-5">products</h1>
+                                        <div className="grid grid-cols-2 md:grid-cols-3 justify-items-stretch gap-3 xl:gap-7 mb-10">
                                             {
                                                 bikes.map((bike, index) => (
                                                     <ProductCard key={index} bike={bike} />

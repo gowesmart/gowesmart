@@ -28,7 +28,7 @@ const ProductPreview = ({ bikes }) => {
                 </div>
             </div>
             <div className="flex justify-end w-full">
-                <Link href={"/bikes"} className="py-2 px-7 bg-secondary rounded-md">more products</Link>
+                <Link href={"/bikes"} className="py-2 px-7 bg-secondary rounded-md hover:opacity-80 duration-150">more products</Link>
             </div>
         </section>
     )

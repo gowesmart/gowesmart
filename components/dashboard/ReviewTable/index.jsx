@@ -1,5 +1,4 @@
-"use client";
-
+"use client";;
 import { useRouter } from "next/navigation";
 import { useFetch } from "@/hooks/useFetch";
 import {
@@ -13,7 +12,6 @@ import TableDashboard from "../TableDashboard";
 import DashboardPagination from "../DashboardPagination";
 import Loading from "@/app/loading";
 import useAuthStore from "@/store/authStore";
-import DetailReview from "./DetailReview"; // Ensure this is imported
 
 export default function ReviewTable({ page }) {
   const router = useRouter();
@@ -49,7 +47,6 @@ export default function ReviewTable({ page }) {
           <TableHead>Rating</TableHead>
           <TableHead>User</TableHead>
           <TableHead>Bike</TableHead>
-          <TableHead className="text-right">Action</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -73,9 +70,6 @@ export default function ReviewTable({ page }) {
               <TableCell>{review.rating}</TableCell>
               <TableCell>{review.user_username}</TableCell>
               <TableCell>{review.bike_name}</TableCell>
-              <TableCell className="text-right">
-                <DetailReview reviewID={review.id} />
-              </TableCell>
             </TableRow>
           ))
         )}

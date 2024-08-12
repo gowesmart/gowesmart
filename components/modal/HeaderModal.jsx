@@ -27,18 +27,18 @@ const HeaderModal = ({ isModal, setIsModal, handleLogout, role }) => {
                       <p className="pr-[25px] text-left font-semibold">Profile</p>
                     </Link>
                     <Link
-                      href={"/cart"}
+                      href={"/user/cart"}
                       className="flex items-center rounded-md duration-150 hover:bg-secondary"
                     >
                       <div className="flex h-[50px] w-[50px] items-center justify-center">
                         <i aria-hidden className="fa-solid fa-cart-shopping"></i>
                       </div>
                       <p className="pr-[25px] text-left font-semibold">
-                        Shopping Cart
+                        Cart
                       </p>
                     </Link>
                     <Link
-                      href={"/history"}
+                      href={"/user/history"}
                       className="flex items-center rounded-md duration-150 hover:bg-secondary"
                     >
                       <div className="flex h-[50px] w-[50px] items-center justify-center">
@@ -118,7 +118,7 @@ const HeaderModal = ({ isModal, setIsModal, handleLogout, role }) => {
                   <p className="pr-[25px] text-left font-semibold">Home</p>
                 </Link>
                 <Link
-                  href={"/carts"}
+                  href={"/user/cart"}
                   className="flex items-center rounded-md duration-150 hover:bg-secondary"
                 >
                   <div className="flex h-[50px] w-[50px] items-center justify-center">
@@ -177,7 +177,7 @@ const HeaderModal = ({ isModal, setIsModal, handleLogout, role }) => {
               onClick={() => {
                 setIsModal(false);
               }}
-              href={"/carts"}
+              href={"/user/cart"}
               className="z-50 flex h-[35px] w-[35px] items-center justify-center rounded-md border border-accent duration-150 hover:bg-[#252525]"
             >
               <i aria-hidden className="fa-solid fa-cart-shopping"></i>
