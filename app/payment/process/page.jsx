@@ -63,7 +63,7 @@ const PaymentProcess = () => {
                             {!isUpdated ?
                                 <button onClick={handleRefresh} className="border border-accent py-2 rounded-md w-full flex justify-center font-semibold mt-2 hover:bg-gray-dark duration-150">Try Again</button>
                                 :
-                                <Link href={"/history"} className="border border-accent py-2 rounded-md w-full flex justify-center font-semibold mt-2 hover:bg-gray-dark duration-150">History</Link>
+                                <Link href={"/user/history"} className="border border-accent py-2 rounded-md w-full flex justify-center font-semibold mt-2 hover:bg-gray-dark duration-150">History</Link>
                             }
                         </div>
                     </main>
