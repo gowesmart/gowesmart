@@ -12,7 +12,7 @@ export default function TableDashboard({
 
   return (
     <div className="size-full space-y-5 rounded-md border border-accent p-5">
-      <div className="flex justify-between">
+      <div className="flex flex-col md:flex-row gap-3 md:gap-0 justify-between">
         <div className="flex items-center gap-2">
           <h1 className="text-2xl font-semibold">{title}</h1>
           <Button

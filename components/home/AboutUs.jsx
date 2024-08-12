@@ -1,10 +1,10 @@
 const AboutUs = () => {
     return (
-        <section className="pt-20 pb-28">
-            <div className="flex justify-between h-[550px]">
-                <div className="w-[50%] bg-secondary h-full flex flex-col justify-center items-center">
-                    <i aria-hidden className="fa-solid fa-bicycle text-[64px]"></i>
-                    <p className="font-bold text-[20px]">gowesmart</p>
+        <section className="pt-20 pb-28 px-5 xl:px-0">
+            <div className="flex flex-col xl:flex-row justify-between xl:h-[550px]">
+                <div className="xl:w-[50%] bg-secondary h-[300px] md:h-[500px] mb-5 xl:mb-0 xl:h-full flex flex-col justify-center items-center">
+                    <i aria-hidden className="fa-solid fa-bicycle text-[40px] md:text-[64px]"></i>
+                    <p className="font-bold md:text-[20px] mt-1">gowesmart</p>
                 </div>
                 <div className="flex flex-col gap-5 justify-between">
                     <div className="py-9 px-14 border border-accent">

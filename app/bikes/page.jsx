@@ -15,6 +15,8 @@ const Bikes = () => {
     const [page, setPage] = useState({ current: 1, total: 1, items: [] })
     const [bikes, setBikes] = useState([])
     const { filters, setFilters, clearFilters, adaptFilter, increaseAdaptFilter, decreaseAdaptFilter } = useFilter()
+    const [categories, setCategories] = useState([])
+    const [isFilter, setIsFilter] = useState(false)
 
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: "auto" });
@@ -33,8 +35,21 @@ const Bikes = () => {
         setIsLoading(true)
 
         try {
-            const res = await axios.get(`${baseUrl}/api/bikes?limit=9&page=${currentPage ? currentPage : page.current}&name=${filters.name}&category_id=${filters.categoryId.value}&min_price=${filters.minPrice.value}&max_price=${filters.maxPrice.value}&min_year=${filters.minYear.value}&max_year=${filters.maxYear.value}`)
-            setBikes(res.data.payload)
+            const [res, categoryRes] = await Promise.all([
+                axios.get(`${baseUrl}/api/bikes?limit=9&page=${currentPage ? currentPage : page.current}&name=${filters.name}&category_id=${filters.categoryId.value}&min_price=${filters.minPrice.value}&max_price=${filters.maxPrice.value}&min_year=${filters.minYear.value}&max_year=${filters.maxYear.value}`),
+                axios.get(`${baseUrl}/api/categories`)
+            ])
+
+            setCategories(categoryRes.data.payload)
+
+            const avaliableBikes = []
+            res.data.payload.forEach((item) => {
+                if (item.stock != 0) {
+                    avaliableBikes.push(item)
+                }
+            })
+
+            setBikes(avaliableBikes)
 
             const totalPages = res.data.metadata.total_pages
             let pages = []
@@ -66,11 +81,13 @@ const Bikes = () => {
         let value = e.target.value
 
         if (/^\d*$/.test(value)) {
-            if (value[0] == 0) {
-                return
+            if (field != "categoryId") {
+                if (value[0] == 0) {
+                    return
+                }
             }
 
-            if (value != "") {
+            if (value != "" && value != 0) {
                 if (filters[field].isAdapt === false) {
                     increaseAdaptFilter()
                 }
@@ -97,15 +114,21 @@ const Bikes = () => {
                             isError ?
                                 <Error />
                                 :
-                                <main className="mt-[80px] container xl:max-w-[1280px] mx-auto pt-10 pb-24 flex gap-10">
+                                <main className="mt-[80px] container xl:max-w-[1280px] mx-auto pt-10 pb-24 flex flex-col xl:flex-row gap-5 xl:gap-10 px-5 xl:px-0">
+                                    <button onClick={() => { setIsFilter(prev => !prev) }} className="inline-block xl:hidden bg-secondary text-[14px] py-2 w-full hover:opacity-80 duration-150 rounded-md">Filter ({adaptFilter})</button>
                                     <form onSubmit={(e) => {
                                         e.preventDefault()
                                         setFilters({ marker: true })
-                                    }} className="w-[280px] bg-[#252525] border border-accent rounded-md gap-5 p-7 flex flex-col justify-center items-center h-fit">
+                                    }} className={`w-full xl:w-[280px] bg-[#252525] border border-accent rounded-md gap-5 p-7 ${isFilter ? "flex duration-200" : "hidden"} xl:flex flex-col justify-center items-center h-fit`}>
                                         <div className="w-full flex flex-col gap-2">
                                             <label>category</label>
-                                            <select className="bg-[#434343] rounded-md py-2 px-3">
-                                                <option>all category</option>
+                                            <select onChange={(e) => { handleFilter(e, "categoryId") }} value={filters.categoryId.value} className="bg-[#434343] rounded-md py-2 px-3">
+                                                <option value={0}>All</option>
+                                                {
+                                                    categories.map((item, index) => (
+                                                        <option key={index} value={item.ID}>{item.Name}</option>
+                                                    ))
+                                                }
                                             </select>
                                         </div>
                                         <div className="w-full flex flex-col gap-2">
@@ -133,8 +156,8 @@ const Bikes = () => {
                                         <button type="submit" className="w-full bg-secondary rounded-md py-2">apply</button>
                                     </form>
                                     <div className="w-full">
-                                        <h1 className="text-[32px] font-semibold mb-5">products</h1>
-                                        <div className="grid grid-cols-3 justify-items-stretch gap-7 mb-10">
+                                        <h1 className="text-[24px] md::text-[32px] font-semibold mb-5">products</h1>
+                                        <div className="grid grid-cols-2 md:grid-cols-3 justify-items-stretch gap-3 xl:gap-7 mb-10">
                                             {
                                                 bikes.map((bike, index) => (
                                                     <ProductCard key={index} bike={bike} />
