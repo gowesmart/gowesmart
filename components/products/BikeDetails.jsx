@@ -68,7 +68,7 @@ const BikeDetails = ({ bike, reviews }) => {
                                 <Link className="hover:opacity-70 hover:underline" href={`/bikes/${bike.id}`}>{bike.name}</Link>
                             </section>
                             <section className="flex flex-col xl:flex-row gap-10 mt-5 w-full justify-end">
-                                <Image src={bike.image_url} width={635} height={450} alt="bike" priority={true} className="w-full xl:w-fit" />
+                                <Image src={bike.image_url} width={0} height={0} sizes="100vw" alt="bike" priority={true} className="w-full xl:w-[635px] h-auto" />
                                 <div className="w-full xl:max-w-[50%]">
                                     <div className="pb-3 border-b border-white">
                                         <h1 className="text-[24px] md:text-[36px] font-bold">{bike.name}</h1>
