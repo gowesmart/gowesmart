@@ -7,7 +7,7 @@ const ProductCard = ({ bike }) => {
       href={`/bikes/${bike.id}`}
       className="flex xl:h-[406px] xl:w-[300px] flex-col items-center justify-center rounded-md border border-accent bg-gradient-to-br from-[rgba(67,67,67,0.2)] to-[rgba(14,14,14,0.2)] p-5 xl:p-10 duration-200 hover:scale-105"
     >
-      <div className="w-full h-[80px] md:h-[150px] overflow-hidden">
+      <div className="w-full h-fit xl:h-[150px] overflow-hidden">
         <Image
           src={bike.image_url}
           width={0}
@@ -19,7 +19,7 @@ const ProductCard = ({ bike }) => {
         />
       </div>
       <div className="w-full">
-        <p className="mt-3 mb-1 xl:mb-0 max-h-[25px] xl:max-h-[30px] overflow-hidden xl:text-[20px] font-semibold">
+        <p className="mt-3 max-h-[25px] xl:max-h-[30px] overflow-hidden xl:text-[20px] font-semibold">
           {bike.name}
         </p>
         <p className="max-h-[14px] xl:max-h-[20px] overflow-hidden text-[10px] xl:text-[14px]">
@@ -32,7 +32,7 @@ const ProductCard = ({ bike }) => {
             </p>
             <div className="flex items-center justify-center gap-1 text-[8px] xl:text-[14px]">
               <i aria-hidden className="fa-solid fa-star text-yellow-400"></i>
-              <p>(5) | {bike.stock} available</p>
+              <p>({bike.rating}) | {bike.stock} available</p>
             </div>
           </div>
           <button className="hidden xl:flex items-center justify-center rounded-sm border border-accent p-3 duration-150 hover:bg-secondary">
