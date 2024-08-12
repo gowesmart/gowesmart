@@ -11,6 +11,21 @@ import Link from "next/link";
 import axiosInstance from "@/lib/axios";
 import { useToast } from "@/hooks/useToast";
 import { useRouter } from "next/navigation";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "../global/Dialog";
+import { InputGroup } from "../global/InputGroup";
+import { Label } from "../global/Label";
+import DashboardInput from "../dashboard/DashboardInput";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { reviewCreateSchema } from "@/validation/review";
+import { useForm } from "react-hook-form";
+import Spinner from "../global/Spinner";
 
 export default function History() {
   const router = useRouter();
@@ -24,6 +39,15 @@ export default function History() {
       },
     },
   );
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm({
+    mode: "onChange",
+    resolver: zodResolver(reviewCreateSchema),
+  });
 
   const handleDelete = async (id) => {
     try {
@@ -41,6 +65,28 @@ export default function History() {
       toast({
         title: "Error while deleting a transaction",
         description: "Some error occurred while deleting a transaction",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleAddReview = async (data) => {
+    console.log(data);
+
+    try {
+      await axiosInstance.post("/api/reviews", data, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      toast({
+        title: "Review bike Created",
+        description: "Review bike has been created successfully",
+      });
+      router.refresh();
+    } catch (error) {
+      await deleteImage(imageName);
+      toast({
+        title: "Error while creating a review bike",
+        description: "Some error occurred while creating a review bike",
         variant: "destructive",
       });
     }
@@ -77,7 +123,68 @@ export default function History() {
                         <p>Total Price: {toRupiah(order?.total_price)}</p>
                       </div>
                       {trx.status === "paid" && (
-                        <Button className="w-fit">Add Review</Button>
+                        <Dialog>
+                          <DialogTrigger asChild>
+                            <Button
+                              className="flex items-center gap-3"
+                              variant="outline"
+                            >
+                              <i aria-hidden className="fa-solid fa-plus" />
+                              <p>Add Review</p>
+                            </Button>
+                          </DialogTrigger>
+                          <DialogContent className="sm:max-w-[425px]">
+                            <DialogHeader>
+                              <DialogTitle>Create Review</DialogTitle>
+                            </DialogHeader>
+                            <DialogDescription>
+                              Input theese fields and then click submit for
+                              create a new bike.
+                            </DialogDescription>
+                            <form
+                              onSubmit={handleSubmit(handleAddReview)}
+                              className="flex flex-col items-end gap-4"
+                            >
+                              <div className="mt-2 grid w-full gap-4">
+                                {JSON.stringify(errors)}
+
+                                <DashboardInput
+                                  type="hidden"
+                                  value={order?.bikeID}
+                                  {...register("bike_id")}
+                                />
+                                <InputGroup error={errors.rating?.message}>
+                                  <Label htmlFor="rating">Rating</Label>
+                                  <DashboardInput
+                                    id="rating"
+                                    type="number"
+                                    placeholder="Rating..."
+                                    {...register("rating", {
+                                      valueAsNumber: true,
+                                    })}
+                                  />
+                                </InputGroup>
+                                <InputGroup error={errors.comment?.message}>
+                                  <Label htmlFor="comment">Comment</Label>
+                                  <DashboardInput
+                                    id="comment"
+                                    type="text"
+                                    placeholder="Comment..."
+                                    {...register("comment")}
+                                  />
+                                </InputGroup>
+                              </div>
+                              <Button
+                                disabled={isSubmitting}
+                                type="submit"
+                                className="w-fit"
+                              >
+                                <Spinner show={isSubmitting} />
+                                Submit
+                              </Button>
+                            </form>
+                          </DialogContent>
+                        </Dialog>
                       )}
                     </div>
                   </div>
