@@ -91,6 +91,7 @@ export default function History() {
       });
     }
   };
+  
 
   if (isFetching) return <Loading />;
 
@@ -146,12 +147,12 @@ export default function History() {
                               className="flex flex-col items-end gap-4"
                             >
                               <div className="mt-2 grid w-full gap-4">
-                                {JSON.stringify(errors)}
-
                                 <DashboardInput
                                   type="hidden"
-                                  value={order?.bikeID}
-                                  {...register("bike_id")}
+                                  defaultValue={+order?.bike?.id}
+                                  {...register("bike_id", {
+                                    valueAsNumber: true
+                                  })}
                                 />
                                 <InputGroup error={errors.rating?.message}>
                                   <Label htmlFor="rating">Rating</Label>
@@ -159,6 +160,7 @@ export default function History() {
                                     id="rating"
                                     type="number"
                                     placeholder="Rating..."
+                                  defaultValue={0}
                                     {...register("rating", {
                                       valueAsNumber: true,
                                     })}
