@@ -57,7 +57,7 @@ export default function FormLogin() {
   return (
     <form className="w-full max-w-lg" onSubmit={handleSubmit}>
       <div className="mb-5">
-        <label for="email" className="block mb-2 text-base font-medium text-gray-900">
+        <label htmlFor="email" className="block mb-2 text-base font-medium text-gray-900">
           Email
         </label>
         <input
@@ -72,7 +72,7 @@ export default function FormLogin() {
         />
       </div>
       <div className="mb-5">
-        <label for="password" className="block mb-2 text-base font-medium text-gray-900">
+        <label htmlFor="password" className="block mb-2 text-base font-medium text-gray-900">
           Password
         </label>
         <input
