@@ -58,28 +58,28 @@ const BikeDetails = ({ bike, reviews }) => {
   };
 
   const handleAddToCart = async () => {
-      if (!currentUser) {
-          router.push("/auth/login")
-          return
-      }
+    if (!currentUser) {
+      router.push("/auth/login")
+      return
+    }
 
-      try {
-          await axios.post(`${baseUrl}/api/carts`, 
-              {
-                  bike_id: bike.id,
-                  quantity
-              }
-          , { headers: { "Authorization": `Bearer ${token}` } })
-          toast({
-              title: "Bike added to cart",
-              description: "you can check it in your cart",
-          })
+    try {
+      await axios.post(`${baseUrl}/api/carts`,
+        {
+          bike_id: bike.id,
+          quantity
+        }
+        , { headers: { "Authorization": `Bearer ${token}` } })
+      toast({
+        title: "Bike added to cart",
+        description: "you can check it in your cart",
+      })
 
-          // router.refresh()
-      } catch (error) {
-          setIsError(true)
-          console.error(error)
-      }
+      // router.refresh()
+    } catch (error) {
+      setIsError(true)
+      console.error(error)
+    }
   }
 
   return (
@@ -179,26 +179,33 @@ const BikeDetails = ({ bike, reviews }) => {
                   </div>
                 </div>
                 <div className="mt-[35px] flex flex-col items-start gap-3 text-[14px] md:flex-row md:items-center md:text-[16px]">
-                  <Quantity
-                    quantity={quantity}
-                    setQuantity={setQuantity}
-                    stock={bike.stock}
-                  />
-                  <button onClick={() => { handleAddToCart() }} className="flex h-[35px] w-full items-center justify-center border border-accent duration-150 hover:bg-gray-dark md:w-[130px]">
-                    add to cart
-                  </button>
-                  <button
-                    onClick={() => {
-                      handleBuy();
-                    }}
-                    className="flex h-[35px] w-full items-center justify-center bg-secondary duration-150 hover:opacity-70 md:w-[130px]"
-                  >
-                    {isLoading ? (
-                      <i className="fa-solid fa-spinner fa-spin"></i>
-                    ) : (
-                      "buy now"
-                    )}
-                  </button>
+                  {
+                    bike.stock == 0 ?
+                      <p className="border border-red-500 text-red-500 py-1 px-5">Sold Out</p>
+                      :
+                      <>
+                        <Quantity
+                          quantity={quantity}
+                          setQuantity={setQuantity}
+                          stock={bike.stock}
+                        />
+                        <button onClick={() => { handleAddToCart() }} className="flex h-[35px] w-full items-center justify-center border border-accent duration-150 hover:bg-gray-dark md:w-[130px]">
+                          add to cart
+                        </button>
+                        <button
+                          onClick={() => {
+                            handleBuy();
+                          }}
+                          className="flex h-[35px] w-full items-center justify-center bg-secondary duration-150 hover:opacity-70 md:w-[130px]"
+                        >
+                          {isLoading ? (
+                            <i className="fa-solid fa-spinner fa-spin"></i>
+                          ) : (
+                            "buy now"
+                          )}
+                        </button>
+                      </>
+                  }
                 </div>
               </div>
             </section>

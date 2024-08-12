@@ -146,7 +146,7 @@ export default function History() {
   if (isFetching) return <Loading />;
 
   return (
-    <main className="container mx-auto mt-[80px] py-10 xl:max-w-[1280px]">
+    <main className="container mx-auto min-h-screen xl:max-w-[1280px]">
       <div className="space-y-5 rounded-md md:border border-accent p-5 md:p-10">
         <h1 className="text-2xl font-semibold">History</h1>
         <div className="flex flex-col gap-5">
