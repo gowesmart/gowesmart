@@ -93,7 +93,7 @@ const Header = () => {
               setIsModal(false);
               handleLight();
             }}
-            href={"/cart"}
+            href={"/user/cart"}
             className={`z-50 hidden xl:flex h-[40px] w-[40px] items-center justify-center duration-150 hover:bg-[#252525] ${isLight && "text-yellow-400"} rounded-md border border-accent`}
           >
             <i
@@ -122,7 +122,7 @@ const Header = () => {
                 onClick={() => {
                   setIsModal(false);
                 }}
-                href={"/cart"}
+                href={"/user/cart"}
                 className="z-50 flex h-[40px] w-[40px] items-center justify-center rounded-md border border-accent duration-150 hover:bg-[#252525]"
               >
                 <i aria-hidden className="fa-solid fa-cart-shopping"></i>
@@ -163,7 +163,7 @@ const Header = () => {
                 <i aria-hidden className="fa-solid fa-house"></i>
               </Link>
               <Link
-                href={"/cart"}
+                href={"/user/cart"}
                 className="flex h-[40px] w-[40px] items-center justify-center rounded-md border border-accent duration-150 hover:bg-[#252525]"
               >
                 <i aria-hidden className="fa-solid fa-cart-shopping"></i>

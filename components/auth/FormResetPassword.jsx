@@ -93,7 +93,7 @@ export default function FormResetPassword({ token }) {
       onSubmit={handleSubmit}
     >
       <InputGroup>
-        <Label htmlFor="new_password" className="text-base">
+        <Label htmlFor="new_password" className="text-base text-white">
           New Password
         </Label>
         <DashboardInput
