@@ -65,6 +65,7 @@ const Header = () => {
             className={`z-50 xl:hidden flex h-[40px] min-w-[40px]  items-center justify-center duration-150 hover:bg-[#252525] ${isLight && "text-yellow-400"} rounded-md border border-accent`}
           >
             <i
+              aria-hidden
               className={cn(`fa-solid fa-bolt`, {
                 "fa-shake": isShake,
               })}
@@ -96,6 +97,7 @@ const Header = () => {
             className={`z-50 hidden xl:flex h-[40px] w-[40px] items-center justify-center duration-150 hover:bg-[#252525] ${isLight && "text-yellow-400"} rounded-md border border-accent`}
           >
             <i
+              aria-hidden
               className={cn(`fa-solid fa-bolt`, {
                 "fa-shake": isShake,
               })}

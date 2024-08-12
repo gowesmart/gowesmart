@@ -9,14 +9,7 @@ const fetchData = async () => {
     const res = await fetch(`${baseUrl}/api/bikes/?limit=9&page=1`, { cache: "no-store" })
     const data = await res.json()
 
-    const avaliableBikes = []
-    data.payload.forEach((item) => {
-      if (item.stock != 0) {
-        avaliableBikes.push(item)
-      }
-    })
-
-    return avaliableBikes
+    return data.payload
   } catch (error) {
     throw error
   }
