@@ -14,7 +14,7 @@ const SmallProductCard = ({ bike }) => {
                     <p className="font-semibold text-[14px]">Rp {bike.price.toLocaleString("id-ID")}</p>
                     <div className="flex text-[10px] justify-start items-center gap-2">
                         <i aria-hidden className="fa-solid fa-star text-yellow-400"></i>
-                        <p>5 | {bike.stock} available</p>
+                        <p>({bike.rating}) | {bike.stock} available</p>
                     </div>
                 </div>
                 <div className="border border-accent hover:bg-secondary duration-150 rounded-sm p-2 flex justify-center items-center">

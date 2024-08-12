@@ -28,11 +28,14 @@ const page = () => {
             ])
 
             let singleBike = bikeRes.data.payload
+
             categoryRes.data.payload.forEach(category => {
                 if (category.ID === singleBike.category_id) {
                     singleBike.category = category.Name
                 }
             })
+
+            singleBike.rating = singleBike.rating == 0 ? 0 : Math.floor(singleBike.rating / singleBike.reviewers)
 
             setBike(singleBike)
             setReviews(reviewRes.data.payload)

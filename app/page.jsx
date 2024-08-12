@@ -11,7 +11,12 @@ const fetchData = async () => {
     });
     const data = await res.json();
 
-    return data.payload
+    const newBikes = data.payload.map((item) => ({
+      ...item,
+      rating: item.rating == 0 ? 0 : Math.floor(item.rating / item.reviewers)
+  }))
+
+    return newBikes
   } catch (error) {
     throw error;
   }

@@ -103,7 +103,7 @@ const BikeDetails = ({ bike, reviews }) => {
                       aria-hidden
                       className="fa-solid fa-star text-yellow-400"
                     ></i>
-                    <p>(5) | {bike.stock} available</p>
+                    <p>({bike.rating}) | {bike.stock} available</p>
                   </div>
                 </div>
                 <p className="mt-2 text-[20px] font-semibold md:text-[24px]">
@@ -218,9 +218,18 @@ const BikeDetails = ({ bike, reviews }) => {
           </div>
           <div className="container mx-auto mt-20 flex w-full flex-col gap-[25px] px-5 xl:max-w-[1280px] xl:px-0">
             <h2 className="text-[24px] font-bold">Reviews</h2>
-            {reviews.map((review) => (
-              <Review key={review.id} review={review} />
-            ))}
+            {
+              reviews.length == 0 ?
+                <p>No Reviews Found.</p>
+                :
+                <>
+                  {
+                    reviews.map((review) => (
+                      <Review key={review.id} review={review} />
+                    ))
+                  }
+                </>
+            }
           </div>
         </main>
       )}

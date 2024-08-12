@@ -41,8 +41,14 @@ const Bikes = () => {
             ])
 
             setCategories(categoryRes.data.payload)
-            setBikes(res.data.payload)
-
+            
+            const newBikes = res.data.payload.map((item) => ({
+                ...item,
+                rating: item.rating == 0 ? 0 : Math.floor(item.rating / item.reviewers)
+            }))
+            
+            setBikes(newBikes)
+            
             const totalPages = res.data.metadata.total_pages
             let pages = []
             if (page.current % 2 !== 0) {
