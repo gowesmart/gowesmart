@@ -82,7 +82,7 @@ export default function FormForgotPassword() {
       onSubmit={handleSubmit}
     >
       <InputGroup>
-        <Label htmlFor="username" className="text-base">
+        <Label htmlFor="username" className="text-base text-white">
           Username
         </Label>
         <DashboardInput
@@ -97,7 +97,7 @@ export default function FormForgotPassword() {
         />
       </InputGroup>
       <InputGroup>
-        <Label htmlFor="email" className="text-base">
+        <Label htmlFor="email" className="text-base text-white">
           Email
         </Label>
         <DashboardInput

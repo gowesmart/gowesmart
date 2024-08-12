@@ -40,7 +40,7 @@ export default async function Home() {
             </p>
             <div className="mt-6 flex flex-col gap-3 md:flex-row md:gap-5">
               <Link
-                href={"/cart"}
+                href={"/user/cart"}
                 className="rounded-md bg-secondary px-12 py-2 duration-150 hover:opacity-80"
               >
                 shop now

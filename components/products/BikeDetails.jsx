@@ -9,6 +9,7 @@ import Error from "@/app/error";
 import axios from "axios";
 import { baseUrl } from "@/utils/constants";
 import Review from "../review/Review";
+import { useToast } from "@/hooks/useToast";
 
 const BikeDetails = ({ bike, reviews }) => {
   const [quantity, setQuantity] = useState(1);
@@ -17,6 +18,7 @@ const BikeDetails = ({ bike, reviews }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const prevQty = sessionStorage.getItem("quantity");
+  const { toast } = useToast()
 
   useEffect(() => {
     if (prevQty) {
@@ -54,6 +56,31 @@ const BikeDetails = ({ bike, reviews }) => {
       console.error(error);
     }
   };
+
+  const handleAddToCart = async () => {
+      if (!currentUser) {
+          router.push("/auth/login")
+          return
+      }
+
+      try {
+          await axios.post(`${baseUrl}/api/carts`, 
+              {
+                  bike_id: bike.id,
+                  quantity
+              }
+          , { headers: { "Authorization": `Bearer ${token}` } })
+          toast({
+              title: "Bike added to cart",
+              description: "you can check it in your cart",
+          })
+
+          // router.refresh()
+      } catch (error) {
+          setIsError(true)
+          console.error(error)
+      }
+  }
 
   return (
     <>
@@ -157,7 +184,7 @@ const BikeDetails = ({ bike, reviews }) => {
                     setQuantity={setQuantity}
                     stock={bike.stock}
                   />
-                  <button className="flex h-[35px] w-full items-center justify-center border border-accent duration-150 hover:bg-gray-dark md:w-[130px]">
+                  <button onClick={() => { handleAddToCart() }} className="flex h-[35px] w-full items-center justify-center border border-accent duration-150 hover:bg-gray-dark md:w-[130px]">
                     add to cart
                   </button>
                   <button

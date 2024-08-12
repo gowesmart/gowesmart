@@ -76,7 +76,7 @@ export default function FormLogin() {
       onSubmit={handleSubmit}
     >
       <InputGroup>
-        <Label htmlFor="email" className="text-base">
+        <Label htmlFor="email" className="text-base text-white">
           Email
         </Label>
         <DashboardInput
@@ -91,7 +91,7 @@ export default function FormLogin() {
         />
       </InputGroup>
       <InputGroup>
-        <Label htmlFor="password" className="text-base">
+        <Label htmlFor="password" className="text-base text-white">
           Password
         </Label>
         <DashboardInput

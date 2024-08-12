@@ -91,7 +91,7 @@ export default function FormRegister() {
         onSubmit={handleSubmit}
       >
         <InputGroup>
-          <Label htmlFor="username" className="text-base">
+          <Label htmlFor="username" className="text-base text-white">
             Username
           </Label>
           <DashboardInput
@@ -106,7 +106,7 @@ export default function FormRegister() {
           />
         </InputGroup>
         <InputGroup>
-          <Label htmlFor="email" className="text-base">
+          <Label htmlFor="email" className="text-base text-white">
             Email
           </Label>
           <DashboardInput
@@ -121,7 +121,7 @@ export default function FormRegister() {
           />
         </InputGroup>
         <InputGroup>
-          <Label htmlFor="password" className="text-base">
+          <Label htmlFor="password" className="text-base text-white">
             Password
           </Label>
           <DashboardInput
