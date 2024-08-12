@@ -41,7 +41,15 @@ const Bikes = () => {
             ])
 
             setCategories(categoryRes.data.payload)
-            setBikes(res.data.payload)
+
+            const avaliableBikes = []
+            res.data.payload.forEach((item) => {
+                if (item.stock != 0) {
+                    avaliableBikes.push(item)
+                }
+            })
+
+            setBikes(avaliableBikes)
 
             const totalPages = res.data.metadata.total_pages
             let pages = []
