@@ -81,27 +81,30 @@ const BikeDetails = ({ bike, reviews }) => {
                 {bike.name}
               </Link>
             </section>
-            <section className="mt-5 flex w-full flex-col justify-end gap-10 xl:flex-row">
-              <Image
-                src={bike.image_url}
-                width={635}
-                height={450}
-                alt="bike"
-                priority={true}
-                className="w-full xl:w-fit"
-              />
+            <section className="mt-5 flex w-full xl:h-[426px] flex-col justify-end gap-10 xl:flex-row">
+              <div className="w-full xl::w-[625px] h-full overflow-hidden">
+                <Image
+                  src={bike.image_url}
+                  width={0}
+                  height={0}
+                  sizes="100vw"
+                  alt="bike"
+                  priority={true}
+                  className="w-full h-auto"
+                />
+              </div>
               <div className="w-full xl:max-w-[50%]">
                 <div className="border-b border-white pb-3">
                   <h1 className="text-[24px] font-bold md:text-[36px]">
                     {bike.name}
                   </h1>
-                  <p className="flex items-center gap-2 pt-1 text-[12px] md:text-[14px]">
+                  <div className="flex items-center gap-2 pt-1 text-[12px] md:text-[14px]">
                     <i
                       aria-hidden
                       className="fa-solid fa-star text-yellow-400"
                     ></i>
                     <p>(5) | {bike.stock} available</p>
-                  </p>
+                  </div>
                 </div>
                 <p className="mt-2 text-[20px] font-semibold md:text-[24px]">
                   Rp {bike.price.toLocaleString("id-ID")}
@@ -173,7 +176,7 @@ const BikeDetails = ({ bike, reviews }) => {
               </div>
             </section>
           </div>
-          <div className="mt-10 bg-[#434343] px-5 md:mt-28 xl:px-0">
+          <div className="mt-10 bg-[#434343] px-5 xl:px-0">
             <section className="container mx-auto flex flex-col justify-center gap-10 py-16 md:items-center xl:max-w-[1280px]">
               <h2 className="text-[20px] font-bold md:text-[24px]">
                 Why Should You Buy This Bike?

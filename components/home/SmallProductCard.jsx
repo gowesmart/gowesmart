@@ -4,7 +4,9 @@ import Link from "next/link"
 const SmallProductCard = ({ bike }) => {
     return (
         <Link href={`/bikes/${bike.id}`} className="min-w-[190px] max-w-[190px] h-[260px] hover:scale-105 duration-200 p-5 rounded-md border border-accent bg-gradient-to-br from-[rgba(67,67,67,0.2)] to-[rgba(14,14,14,0.2)] flex flex-col justify-center items-start">
-            <Image src={bike.image_url} width={150} height={150} alt="speda" />
+            <div className="w-[150px] h-[100px] overflow-hidden">
+                <Image src={bike.image_url} width={0} height={0} sizes="100vw" alt="speda" className="w-full h-auto" />
+            </div>
             <p className="text-[14px] mt-2">{bike.name}</p>
             <p className="text-[10px] max-h-[17px] overflow-hidden">{bike.description}</p>
             <div className="w-full flex justify-between items-center mt-2">
