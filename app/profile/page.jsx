@@ -49,7 +49,7 @@ export default function Profile() {
       name: profile.name,
       bio: profile.bio,
       gender: profile.gender,
-      age: profile.age
+      age: Number(profile.age)
     };
     e.preventDefault();
     try {
@@ -101,7 +101,7 @@ export default function Profile() {
               onChange={handleChange}
               required
               disabled={!isEditing}
-              className={`w-full px-3 py-2 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 ${isEditing ? 'border border-gray-300 bg-white text-black' : 'border-none bg-transparent pt-0 px-0'
+              className={`w-full px-3 py-2 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 ${isEditing ? 'border border-gray-300 bg-white text-black' : 'border-none bg-transparent pt-0 pl-0'
                 }`}
             />
           </div>
@@ -114,7 +114,7 @@ export default function Profile() {
               onChange={handleChange}
               required
               disabled={!isEditing}
-              className={`w-full px-3 py-2 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 ${isEditing ? 'border border-gray-300 bg-white text-black' : 'border-none bg-transparent pt-0 px-0'
+              className={`w-full px-3 py-2 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 ${isEditing ? 'border border-gray-300 bg-white text-black' : 'border-none bg-transparent pt-0 pl-0'
                 }`}
             />
           </div>
@@ -127,7 +127,7 @@ export default function Profile() {
               onChange={handleChange}
               required
               disabled={!isEditing}
-              className={`w-full px-3 py-2 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 ${isEditing ? 'border border-gray-300 bg-white text-black' : 'border-none bg-transparent pt-0 px-0'
+              className={`w-full px-3 py-2 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 ${isEditing ? 'border border-gray-300 bg-white text-black' : 'border-none bg-transparent pt-0 pl-0'
                 }`}
             />
           </div>
@@ -139,7 +139,7 @@ export default function Profile() {
               onChange={handleChange}
               required
               disabled={!isEditing}
-              className={`w-full px-3 py-2 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 ${isEditing ? 'border border-gray-300 bg-white text-black' : 'border-none bg-transparent pt-0 px-0'
+              className={`w-full px-3 py-2 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 ${isEditing ? 'border border-gray-300 bg-white text-black' : 'border-none bg-transparent pt-0 pl-0'
                 }`}
             />
           </div>
@@ -151,12 +151,12 @@ export default function Profile() {
               onChange={handleChange}
               required
               disabled={!isEditing}
-              className={`w-full px-3 py-2 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 ${isEditing ? 'border border-gray-300 bg-white text-black' : 'border-none bg-transparent pt-0 px-0'
+              className={`w-full px-3 py-2 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 ${isEditing ? 'border border-gray-300 bg-white text-black' : 'border-none bg-transparent pt-0 pl-0'
                 }`}
             >
               <option value="">Select Gender</option>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
+              <option value="MALE">MALE</option>
+              <option value="FEMALE">FEMALE</option>
             </select>
           </div>
           <div className="mb-6">
@@ -168,7 +168,7 @@ export default function Profile() {
               onChange={handleChange}
               required
               disabled={!isEditing}
-              className={`w-full px-3 py-2 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 ${isEditing ? 'border border-gray-300 bg-white text-black' : 'border-none bg-transparent pt-0 px-0'}`}
+              className={`w-full px-3 py-2 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 ${isEditing ? 'border border-gray-300 bg-white text-black' : 'border-none bg-transparent pt-0 pl-0'}`}
             />
           </div>
           <div className="flex justify-end">
