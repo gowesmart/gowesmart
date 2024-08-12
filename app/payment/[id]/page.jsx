@@ -106,7 +106,7 @@ const Payment = () => {
                                                                 </div>
                                                             </td>
                                                             <td className="p-7">{bike.quantity}</td>
-                                                            <td className="p-7">Rp {bike.price.toLocaleString("id-ID")}</td>
+                                                            <td className="p-7">Rp {(bike.price * bike.quantity).toLocaleString("id-ID")}</td>
                                                         </tr>
                                                     ))
                                                 }

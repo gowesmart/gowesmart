@@ -44,6 +44,10 @@ const PaymentProcess = () => {
         }
     }
 
+    const handleRefresh = () => {
+        window.location.reload()
+    }
+
     return (
         <>
             {
@@ -56,6 +60,7 @@ const PaymentProcess = () => {
                             <h1 className="font-semibold text-[24px] text-secondary mt-5 w-full">{isUpdated ? "Payment Success!" : "Payment Failed!"}</h1>
                             <p className="font-light w-full">{isUpdated ? "Your transaction has been successfully completed." : "We're sorry, your transaction could not be completed."}</p>
                             <Link href={"/"} className="bg-secondary py-2 rounded-md w-full flex justify-center font-semibold mt-5 hover:opacity-80 duration-150">Home</Link>
+                            {!isUpdated && <button onClick={handleRefresh} className="border border-accent py-2 rounded-md w-full flex justify-center font-semibold mt-2 hover:bg-gray-dark duration-150">Try Again</button>}
                         </div>
                     </main>
             }
