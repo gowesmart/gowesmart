@@ -1,30 +1,97 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Quantity from "../global/Quantity";
 import axios from "axios";
 import { baseUrl } from "@/utils/constants";
 import useAuthStore from "@/store/authStore";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export default function CartPage() {
-  const [quantity, setQuantity] = useState(1);
-  const [cart, setCart] = useState({});
-  const { token } = useAuthStore();
+  const [quantities, setQuantities] = useState({});
+  const { fetchCartUser, cartUser, token } = useAuthStore();
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
-    getCartUser();
+    fetchCartUser();
   }, []);
 
-  const getCartUser = async () => {
-    try {
-      const { data } = await axios.get(`${baseUrl}/api/users/current/carts`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+  useEffect(() => {
+    if (cartUser && cartUser.cart_items) {
+      const initialQuantities = {};
+      let calculatedTotalPrice = 0;
+
+      cartUser.cart_items.forEach((item) => {
+        initialQuantities[item.id] = item.quantity;
+        calculatedTotalPrice += item.bike.price * item.quantity;
       });
-      setCart(data.payload);
+
+      setQuantities(initialQuantities);
+      setTotalPrice(calculatedTotalPrice);
+    }
+  }, [cartUser]);
+
+  const handleQuantityChange = (itemId, newQuantity) => {
+    setQuantities((prevQuantities) => {
+      const updatedQuantities = {
+        ...prevQuantities,
+        [itemId]: newQuantity,
+      };
+
+      // Recalculate total price
+      let newTotalPrice = 0;
+      cartUser.cart_items.forEach((item) => {
+        const itemQuantity = updatedQuantities[item.id] || item.quantity;
+        newTotalPrice += item.bike.price * itemQuantity;
+      });
+
+      setTotalPrice(newTotalPrice);
+      return updatedQuantities;
+    });
+  };
+
+  const handleBuy = async () => {
+    setIsLoading(true);
+    try {
+      const transactionItems = cartUser?.cart_items.map((item) => ({
+        bike_id: item.bike.id,
+        quantity: quantities[item.id] || item.quantity,
+        total_price: item.bike.price * (quantities[item.id] || item.quantity),
+      }));
+
+      const res = await axios.post(
+        `${baseUrl}/api/transactions`,
+        transactionItems,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        },
+      );
+
+      setIsLoading(false);
+      router.push(`/payment/${res.data.payload.transaction_id}`);
     } catch (error) {
-      console.log(error);
+      console.error(error);
+      setIsLoading(false);
+    }
+  };
+
+  const handleDelete = async (bike_id) => {
+    if (confirm("Are you sure you want to delete this item?")) {
+      try {
+        await axios.delete(`${baseUrl}/api/carts`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          data: {
+            bike_id,
+          },
+        });
+        fetchCartUser();
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
 
@@ -48,41 +115,100 @@ export default function CartPage() {
                 <th scope="col" className="px-6 py-3">
                   Price
                 </th>
+                <th scope="col" className="px-6 py-3">
+                  Action
+                </th>
               </tr>
             </thead>
             <tbody>
-              {console.log(cart)}
-              {cart.cart_items?.map((item) => (
-                <tr key={item.id} className="border-b border-accent">
-                  <td className="px-6 py-4">{item.id}</td>
-                  <td className="px-6 py-4">
-                    <div className="card flex max-w-96 items-center gap-2">
-                      <div className="image h-24 w-24 bg-accent"></div>
-                      <div className="card-body flex-1 self-start">
-                        <p className="text-base text-secondary">
-                          Detroit - 152
-                        </p>
-                        <p className="line-clamp-3 text-sm">
-                          Lorem ipsum dolor sit, amet consectetur adipisicing
-                          elit. Doloribus commodi, sequi voluptatem eum hic
-                          officia?
-                        </p>
-                        <p className="text-sm">Rp. 3.000.000</p>
-                      </div>
-                    </div>
+              {cartUser && cartUser.cart_items?.length > 0 ? (
+                <>
+                  {cartUser.cart_items?.map((item, index) => {
+                    const itemQuantity = quantities[item.id] || item.quantity;
+                    return (
+                      <tr key={item.id} className="border-b border-accent">
+                        <td className="px-6 py-4">{index + 1}</td>
+                        <td className="px-6 py-4">
+                          <div className="card flex max-w-96 items-center gap-2">
+                            <Image
+                              className="h-24 w-24 bg-accent object-cover"
+                              src={item.bike.image_url}
+                              alt="bike"
+                              width={100}
+                              height={100}
+                            />
+                            <div className="card-body flex-1 self-start">
+                              <p className="text-base text-secondary">
+                                {item.bike.brand} - {item.bike.name}
+                              </p>
+                              <p className="line-clamp-3 text-sm">
+                                {item.bike.description}
+                              </p>
+                              <p className="text-sm">
+                                Rp. {item.bike.price.toLocaleString("id-ID")}
+                              </p>
+                            </div>
+                          </div>
+                        </td>
+                        <td className="px-6 py-4">
+                          <div>
+                            <div className="flex gap-2">
+                              <button
+                                onClick={() =>
+                                  handleQuantityChange(
+                                    item.id,
+                                    Math.max(1, itemQuantity - 1),
+                                  )
+                                }
+                                className="flex h-[35px] w-[35px] items-center justify-center border border-accent duration-150 hover:bg-gray-dark"
+                              >
+                                <i
+                                  aria-hidden
+                                  className="fa-solid fa-minus"
+                                ></i>
+                              </button>
+                              <div className="flex h-[35px] w-[35px] cursor-default items-center justify-center border border-accent">
+                                {itemQuantity}
+                              </div>
+                              <button
+                                onClick={() =>
+                                  handleQuantityChange(
+                                    item.id,
+                                    Math.min(item.bike.stock, itemQuantity + 1),
+                                  )
+                                }
+                                className="flex h-[35px] w-[35px] items-center justify-center border border-accent duration-150 hover:bg-gray-dark"
+                              >
+                                <i aria-hidden className="fa-solid fa-plus"></i>
+                              </button>
+                            </div>
+                          </div>
+                        </td>
+                        <td className="px-6 py-4">
+                          Rp.{" "}
+                          {(item.bike.price * itemQuantity).toLocaleString(
+                            "id-ID",
+                          )}
+                        </td>
+                        <td className="px-6 py-4">
+                          <button
+                            onClick={() => handleDelete(item.bike.id)}
+                            className="flex h-[40px] w-[40px] items-center justify-center rounded-md border border-accent bg-red-700 duration-150 hover:bg-red-500"
+                          >
+                            <i aria-hidden class="fa-solid fa-xmark"></i>
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </>
+              ) : (
+                <tr className="border-b border-accent">
+                  <td className="px-6 py-4 text-center" colSpan={5}>
+                    No items in cart
                   </td>
-                  <td className="px-6 py-4">
-                    <div>
-                      <Quantity
-                        quantity={item.quantity}
-                        setQuantity={setQuantity}
-                        stock={100}
-                      />
-                    </div>
-                  </td>
-                  <td className="px-6 py-4">Rp. {item.price}</td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </table>
         </div>
@@ -91,10 +217,20 @@ export default function CartPage() {
             <span className="px-6 py-3 text-base text-secondary">
               Total Price :
             </span>
-            <span className="px-6 py-3 text-base text-secondary">$5997</span>
+            <span className="px-6 py-3 text-base text-secondary">
+              Rp. {cartUser?.cart_items ? totalPrice.toLocaleString("id-ID") : 0}
+            </span>
           </div>
-          <button className="rounded-md bg-secondary px-4 py-2 text-white">
-            Checkout
+          <button
+            className="rounded-md bg-secondary px-4 py-2 text-white disabled:opacity-50"
+            onClick={handleBuy}
+            disabled={isLoading || cartUser?.cart_items === null}
+          >
+            {isLoading ? (
+              <i aria-hidden className="fa-solid fa-spinner fa-spin"></i>
+            ) : (
+              "Checkout"
+            )}
           </button>
         </div>
       </section>

@@ -10,6 +10,7 @@ import useAuthStore from "@/store/authStore"
 import Error from "@/app/error"
 import axios from "axios"
 import { baseUrl } from "@/utils/constants"
+import { useToast } from "@/hooks/useToast";
 
 const BikeDetails = ({ bike, reviews }) => {
     const [quantity, setQuantity] = useState(1)
@@ -17,6 +18,7 @@ const BikeDetails = ({ bike, reviews }) => {
     const { currentUser, token } = useAuthStore()
     const [isLoading, setIsLoading] = useState(false)
     const [isError, setIsError] = useState(false)
+    const { toast } = useToast()
 
     const handleBuy = async () => {
         if (!currentUser) {
@@ -37,6 +39,31 @@ const BikeDetails = ({ bike, reviews }) => {
 
             setIsLoading(false)
             router.push(`/payment/${res.data.payload.transaction_id}`)
+        } catch (error) {
+            setIsError(true)
+            console.error(error)
+        }
+    }
+
+    const handleAddToCart = async () => {
+        if (!currentUser) {
+            router.push("/auth/login")
+            return
+        }
+
+        try {
+            await axios.post(`${baseUrl}/api/carts`, 
+                {
+                    bike_id: bike.id,
+                    quantity
+                }
+            , { headers: { "Authorization": `Bearer ${token}` } })
+            toast({
+                title: "Bike added to cart",
+                description: "you can check it in your cart",
+            })
+
+            // router.refresh()
         } catch (error) {
             setIsError(true)
             console.error(error)
@@ -93,7 +120,7 @@ const BikeDetails = ({ bike, reviews }) => {
                                     </div>
                                     <div className="mt-[35px] flex items-center gap-3">
                                         <Quantity quantity={quantity} setQuantity={setQuantity} stock={bike.stock} />
-                                        <button className="flex justify-center items-center hover:bg-gray-dark duration-150 h-[35px] w-[130px] border border-accent">add to cart</button>
+                                        <button onClick={() => { handleAddToCart() }} className="flex justify-center items-center hover:bg-gray-dark duration-150 h-[35px] w-[130px] border border-accent">add to cart</button>
                                         <button onClick={() => { handleBuy() }} className="flex justify-center items-center h-[35px] w-[130px] hover:opacity-70 duration-150 bg-secondary">{isLoading ? <i className="fa-solid fa-spinner fa-spin"></i> : "buy now"}</button>
                                     </div>
                                 </div>
