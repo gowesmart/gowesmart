@@ -56,7 +56,7 @@ const PaymentProcess = () => {
                     :
                     <main className="mt-[80px] min-h-[90vh] container xl:w-[1280px] mx-auto py-10 flex justify-center items-center px-5">
                         <div className="border border-accent rounded-md p-10 flex flex-col justify-center items-center text-center max-w-[300px]">
-                            <i className={`fa-solid ${isUpdated ? "fa-circle-check text-green-500" : "fa-circle-xmark text-red-500"} text-[50px]`}></i>
+                            <i aria-hidden className={`fa-solid ${isUpdated ? "fa-circle-check text-green-500" : "fa-circle-xmark text-red-500"} text-[50px]`}></i>
                             <h1 className="font-semibold text-[24px] text-secondary mt-5 w-full">{isUpdated ? "Payment Success!" : "Payment Failed!"}</h1>
                             <p className="font-light w-full">{isUpdated ? "Your transaction has been successfully completed." : "We're sorry, your transaction could not be completed."}</p>
                             <Link href={"/"} className="bg-secondary py-2 rounded-md w-full flex justify-center font-semibold mt-5 hover:opacity-80 duration-150">Home</Link>

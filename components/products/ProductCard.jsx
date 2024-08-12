@@ -9,11 +9,12 @@ const ProductCard = ({ bike }) => {
     >
       <Image
         src={bike.image_url}
-        width={220}
-        height={220}
+        width={0}
+        height={0}
+        sizes="100vw"
         alt="bike"
         priority={true}
-        className="h-auto"
+        className="w-full h-auto"
       />
       <div className="w-full">
         <p className="mt-3 mb-1 xl:mb-0 max-h-[18px] xl:max-h-[30px] overflow-hidden xl:text-[20px] font-semibold">

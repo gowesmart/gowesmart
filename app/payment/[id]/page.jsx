@@ -98,7 +98,7 @@ const Payment = () => {
                                                         <tr key={index} className="border-b border-accent">
                                                             <td className="p-7">{index + 1}</td>
                                                             <td className="p-7 flex gap-7">
-                                                                <Image src={bike.image_url} width={130} height={0} alt="bike" className="hidden md:inline-block" />
+                                                                <Image src={bike.image_url} width={0} height={0} sizes="100vw" alt="bike" className="hidden md:inline-block w-[130px] h-auto" />
                                                                 <div>
                                                                     <p className="font-semibold text-[20px] text-secondary">{bike.name}</p>
                                                                     <p className="max-h-[30px] md:max-w-[100px] xl:max-w-[300px] overflow-hidden">{bike.description} asdddddd ddddddddddddddd ddddddddddddddddddddddddddddddd ddddddddddddddddd dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd</p>
@@ -113,6 +113,7 @@ const Payment = () => {
                                             </tbody>
                                         </table>
                                         <div className="flex flex-col gap-3 md:hidden text-[12px]">
+                                            <p>Products:</p>
                                             {
                                                 bikes.map((item, index) => (
                                                     <div key={index} className="border border-accent bg-gray-dark rounded-md p-3 flex gap-3">

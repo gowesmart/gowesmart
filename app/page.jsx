@@ -11,14 +11,7 @@ const fetchData = async () => {
     });
     const data = await res.json();
 
-    const avaliableBikes = [];
-    data.payload.forEach((item) => {
-      if (item.stock != 0) {
-        avaliableBikes.push(item);
-      }
-    });
-
-    return avaliableBikes;
+    return data.payload
   } catch (error) {
     throw error;
   }
