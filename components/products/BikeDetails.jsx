@@ -72,10 +72,10 @@ const BikeDetails = ({ bike, reviews }) => {
                                 <div className="w-full xl:max-w-[50%]">
                                     <div className="pb-3 border-b border-white">
                                         <h1 className="text-[24px] md:text-[36px] font-bold">{bike.name}</h1>
-                                        <p className="flex items-center gap-2 text-[12px] md:text-[14px] pt-1">
+                                        <div className="flex items-center gap-2 text-[12px] md:text-[14px] pt-1">
                                             <i aria-hidden className="fa-solid fa-star text-yellow-400"></i>
                                             <p>(5) | {bike.stock} available</p>
-                                        </p>
+                                        </div>
                                     </div>
                                     <p className="mt-2 font-semibold text-[20px] md:text-[24px]">Rp {bike.price.toLocaleString("id-ID")}</p>
                                     <div className="mt-[35px]">
@@ -101,9 +101,16 @@ const BikeDetails = ({ bike, reviews }) => {
                                         </div>
                                     </div>
                                     <div className="mt-[35px] flex flex-col md:flex-row items-start text-[14px] md:text-[16px] md:items-center gap-3">
-                                        <Quantity quantity={quantity} setQuantity={setQuantity} stock={bike.stock} />
-                                        <button className="flex justify-center items-center hover:bg-gray-dark duration-150 h-[35px] w-full md:w-[130px] border border-accent">add to cart</button>
-                                        <button onClick={() => { handleBuy() }} className="flex justify-center items-center h-[35px] w-full md:w-[130px] hover:opacity-70 duration-150 bg-secondary">{isLoading ? <i className="fa-solid fa-spinner fa-spin"></i> : "buy now"}</button>
+                                        {
+                                            bike.stock != 0 ?
+                                                <>
+                                                    <Quantity quantity={quantity} setQuantity={setQuantity} stock={bike.stock} />
+                                                    <button className="flex justify-center items-center hover:bg-gray-dark duration-150 h-[35px] w-full md:w-[130px] border border-accent">add to cart</button>
+                                                    <button onClick={() => { handleBuy() }} className="flex justify-center items-center h-[35px] w-full md:w-[130px] hover:opacity-70 duration-150 bg-secondary">{isLoading ? <i aria-hidden className="fa-solid fa-spinner fa-spin"></i> : "buy now"}</button>
+                                                </>
+                                                :
+                                                <div className="border border-red-500 text-red-500 py-1 px-5 cursor-default">Sold Out</div>
+                                        }
                                     </div>
                                 </div>
                             </section>
