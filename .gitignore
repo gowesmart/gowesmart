@@ -5,12 +5,14 @@
 .vscode
 
 # dependencies
+.yarn/
 /node_modules
 /.pnp
 .pnp.js
 .yarn/install-state.gz
 bun.lockb
 package-lock.json
+.yarnrc.yml
 
 # testing
 /coverage

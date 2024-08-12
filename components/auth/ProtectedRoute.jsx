@@ -9,7 +9,11 @@ export default function ProtectedRoute({ children }) {
   const pathname = usePathname();
   const currentUser = useAuthStore((s) => s.currentUser);
   const mustLogin =
-    pathname.startsWith("/cart") || pathname.startsWith("/dashboard");
+    pathname.startsWith("/cart") ||
+    pathname.startsWith("/dashboard") ||
+    pathname.startsWith("/history") ||
+    pathname.startsWith("/cart") ||
+    pathname.startsWith("/profile");
 
   useEffect(() => {
     if (currentUser) {
