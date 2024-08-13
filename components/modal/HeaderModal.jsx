@@ -18,7 +18,7 @@ const HeaderModal = ({ isModal, setIsModal, handleLogout, role }) => {
                 {role === "USER" ? (
                   <>
                     <Link
-                      href={"/profile"}
+                      href={"/user/profile"}
                       className="flex items-center rounded-md duration-150 hover:bg-secondary"
                     >
                       <div className="flex h-[50px] w-[50px] items-center justify-center">

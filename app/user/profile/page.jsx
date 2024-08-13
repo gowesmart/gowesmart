@@ -69,7 +69,7 @@ export default function Profile() {
   }
 
   return (
-    <main className="pt-[80px]">
+    <main>
       <div className="max-w-lg p-8 mx-auto">
         <div className='flex justify-between items-center'>
           <h1 className="text-2xl font-semibold">Profile</h1>
